@@ -15,7 +15,7 @@ export const BottomTabNavigator = () => {
         return {
           tabBarBackground: () => {
             return Platform.OS === "android" ? (
-              <View style={{ backgroundColor: "black" }} />
+              <View style={{ backgroundColor: "white" }} />
             ) : (
               <BlurView tint="dark" intensity={95} style={{ flex: 1 }} />
             );
