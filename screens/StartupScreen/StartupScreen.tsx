@@ -34,6 +34,7 @@ export const StartupScreen: React.FC = () => {
   useEffect(() => {
     console.log("run useeffect in startupscreen");
     // tryLogin();
+    navigation.navigate('BottomTabNavigator')
   }, []);
 
   return <View style={styles.screen}></View>;
