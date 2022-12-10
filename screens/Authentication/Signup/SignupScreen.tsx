@@ -3,13 +3,9 @@ import {
   Text,
   Dimensions,
   StyleSheet,
-  Platform,
-  KeyboardAvoidingView,
-  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HideKeyboardView } from "../../../components/";
 
 import Colors from "../../../constants/Colors";
@@ -20,14 +16,18 @@ import formReducer from "../../../components/CustomInput/inputReducer";
 import { ErrorComponent } from "../../../components/ErrorComponent";
 
 import { useNavigation } from "@react-navigation/native";
-import { useCallback, useReducer } from "react";
-import { signInWithEmail } from "../../../api";
+import { useCallback, useEffect, useReducer, useState } from "react";
+import { signUpWithEmail } from "../../../api";
+import { useGetUser } from "../../../hooks";
+import { setUserToAsyncStorage } from "../../../utils";
 
 const FORM_UPDATE = "FORM_UPDATE";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 export const SignupScreen: React.FC = () => {
+  const { data } = useGetUser();
   const [formState, formDispatch] = useReducer(formReducer, initialFormState);
+  const [signUpError, setSignupError] = useState<string | undefined>(undefined);
   const navigation: any = useNavigation();
 
   const inputChangeHandler = useCallback(
@@ -42,38 +42,35 @@ export const SignupScreen: React.FC = () => {
     [formDispatch]
   );
 
-  const signInHandler = async () => {
+  const signUpHandler = async () => {
     try {
       if (formState?.isFormValid) {
         const { email, password } = formState.inputValues;
-        const response = await signInWithEmail(email, password);
+        const response = await signUpWithEmail(email, password);
         if (response) {
-          console.log(response);
-          // const userData = response.payload as User
+          await setUserToAsyncStorage(response);
 
-          // await AsyncStorage.setItem(
-          //   "loggedInUser",
-          //   JSON.stringify({ uid: userData.uid })
-          // )
-          // await AsyncStorage.setItem(userData.uid, JSON.stringify(userData))
-          // navigation.navigate("BottomTabNavigator")
+          navigation.navigate("BottomTabNavigator");
+        } else {
+          setSignupError("Something went wrong");
         }
       }
     } catch (error: any) {
+      console.log("at signup", error);
       throw new Error(error.message);
     }
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigation.navigate("BottomTabNavigator")
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (data) {
+      navigation.navigate("BottomTabNavigator");
+    }
+  }, [data]);
 
   return (
     <HideKeyboardView withAvoidView>
       <View style={styles.inputContainer}>
-        <Text style={styles.mainTextLabelStyle}>Sign In</Text>
+        <Text style={styles.mainTextLabelStyle}>Sign Up</Text>
         <CustomInput
           id={"email"}
           label={"Email"}
@@ -96,21 +93,21 @@ export const SignupScreen: React.FC = () => {
           onInputChange={inputChangeHandler}
         />
 
-        <TouchableOpacity onPress={() => navigation.navigate("SignupScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("SigninScreen")}>
           <Text style={styles.redirectToSigninStyle}>
-            Don't have an account?
+            Already have an account?
           </Text>
         </TouchableOpacity>
 
-        {/* {error != undefined ? (
-          <ErrorComponent errorMessage={error} />
+        {signUpError != undefined ? (
+          <ErrorComponent errorMessage={signUpError} />
         ) : (
           <View style={{ height: 30 }}></View>
-        )} */}
+        )}
 
         <CustomButton
-          title="Sign In"
-          onPress={signInHandler}
+          title="Sign Up"
+          onPress={signUpHandler}
           buttonStyle={{
             width: width * 0.5,
             alignSelf: "center",

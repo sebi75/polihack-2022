@@ -6,4 +6,6 @@ export enum ErrorMessages {
   getJobsOffersByEmployerId = "GET_JOBS_OFFERS_BY_EMPLOYER_ID_ERROR",
   getAllJobOffers = "GET_ALL_JOB_OFFERS_ERROR",
   getJobOfferByJobOfferId_error = "GET_JOB_OFFER_BY_JOB_OFFER_ID_ERROR",
+  isAlreadyApplied = "IS_ALREADY_APPLIED_ERROR",
+  editUser = "EDIT_USER_ERROR",
 }

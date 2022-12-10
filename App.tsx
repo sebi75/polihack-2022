@@ -10,7 +10,7 @@ import "react-native-gesture-handler";
 
 enableScreens();
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,

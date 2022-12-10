@@ -1,4 +1,4 @@
-import { auth } from "../../config";
+import { auth } from "../../config/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 /* create user at signup */
@@ -25,6 +25,8 @@ export const signUpWithEmail = async (
         ...defaultUserDocument,
         email: signedUpUser.email as string,
         isVerified: signedUpUser.emailVerified,
+        profilePicture: "",
+        userId: signedUpUser.uid,
       };
 
       returnedUser = await createUser(user);
