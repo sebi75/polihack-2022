@@ -3,14 +3,13 @@ import {
   Text,
   Dimensions,
   StyleSheet,
-  Platform,
-  KeyboardAvoidingView,
-  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
+import { useEffect, useState } from "react";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HideKeyboardView } from "../../../components/";
+
+import { setUserToAsyncStorage } from "../../../utils/asyncStorage";
 
 import Colors from "../../../constants/Colors";
 
@@ -22,12 +21,15 @@ import { ErrorComponent } from "../../../components/ErrorComponent";
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useReducer } from "react";
 import { signInWithEmail } from "../../../api";
+import { useGetUser } from "../../../hooks";
 
 const FORM_UPDATE = "FORM_UPDATE";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 export const SigninScreen: React.FC = () => {
+  const { data, isLoading, error } = useGetUser();
   const [formState, formDispatch] = useReducer(formReducer, initialFormState);
+  const [signinError, setSigninError] = useState<string | undefined>(undefined);
   const navigation: any = useNavigation();
 
   const inputChangeHandler = useCallback(
@@ -49,14 +51,11 @@ export const SigninScreen: React.FC = () => {
         const response = await signInWithEmail(email, password);
         if (response) {
           console.log(response);
-          // const userData = response.payload as User
+          await setUserToAsyncStorage(response);
 
-          // await AsyncStorage.setItem(
-          //   "loggedInUser",
-          //   JSON.stringify({ uid: userData.uid })
-          // )
-          // await AsyncStorage.setItem(userData.uid, JSON.stringify(userData))
-          // navigation.navigate("BottomTabNavigator")
+          navigation.navigate("BottomTabNavigator");
+        } else {
+          setSigninError("Something went wrong");
         }
       }
     } catch (error: any) {
@@ -64,11 +63,11 @@ export const SigninScreen: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigation.navigate("BottomTabNavigator")
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (data) {
+      navigation.navigate("BottomTabNavigator");
+    }
+  }, [data]);
 
   return (
     <HideKeyboardView withAvoidView>
@@ -102,11 +101,11 @@ export const SigninScreen: React.FC = () => {
           </Text>
         </TouchableOpacity>
 
-        {/* {error != undefined ? (
-          <ErrorComponent errorMessage={error} />
+        {signinError != undefined ? (
+          <ErrorComponent errorMessage={signinError} />
         ) : (
           <View style={{ height: 30 }}></View>
-        )} */}
+        )}
 
         <CustomButton
           title="Sign In"
@@ -165,60 +164,6 @@ interface SignButtonComponentProps {
   dispatch: any;
   navigation: any;
 }
-
-// const SignButtonComponent: React.FC<SignButtonComponentProps> = ({
-//   isLoading,
-//   formState,
-//   dispatch,
-//   navigation,
-// }) => {
-//   const signInHandler = async () => {
-//     try {
-//       if (formState?.isFormValid) {
-//         // const response = await dispatch(
-//         //   signInWithEmailThunk({
-//         //     email: formState.inputValues.email,
-//         //     password: formState.inputValues.password,
-//         //   })
-//         // )
-//         // if (response.payload) {
-//         //   const userData = response.payload as User
-
-//         //   await AsyncStorage.setItem(
-//         //     "loggedInUser",
-//         //     JSON.stringify({ uid: userData.uid })
-//         //   )
-//         //   await AsyncStorage.setItem(userData.uid, JSON.stringify(userData))
-//         //   navigation.navigate("BottomTabNavigator")
-//         // }
-//       }
-//     } catch (error: any) {
-//       throw new Error(error.message)
-//     }
-//   }
-
-//   if (isLoading) {
-//     return (
-//       <ActivityIndicator
-//         size={"small"}
-//         color={"red"}
-//         style={{ marginTop: 25 }}
-//       />
-//     )
-//   }
-//   return (
-//     <CustomButton
-//       title="Sign In"
-//       onPress={signInHandler}
-//       buttonStyle={{
-//         width: width * 0.5,
-//         alignSelf: "center",
-//         marginTop: 25,
-//         backgroundColor: Colors.buttonColors.primary,
-//       }}
-//     />
-//   )
-// }
 
 const initialFormState = {
   inputValues: {

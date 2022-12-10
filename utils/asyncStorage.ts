@@ -19,6 +19,8 @@ export const getUserFromAsyncStorage = async (): Promise<IUserModel | null> => {
 export const setUserToAsyncStorage = async (
   user: IUserModel
 ): Promise<void> => {
+  console.log("setting new user in async storage: ", user);
+
   const stringifiedUser = JSON.stringify(user);
 
   try {

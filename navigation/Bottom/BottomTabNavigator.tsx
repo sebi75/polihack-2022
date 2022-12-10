@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 
 import { JobsStackNavigator } from "../Stacks/JobsStackNavigator";
 import { Platform, View } from "react-native";
+import ProfileStackNavigator from "../Stacks/ProfileStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +47,33 @@ export const BottomTabNavigator = () => {
                 color={"white"}
               />
             );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="ProfileStackNavigator"
+        component={ProfileStackNavigator}
+        options={{
+          title: "Profile",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return (
+                <MaterialCommunityIcons
+                  name={"face-man"}
+                  size={25}
+                  color="white"
+                />
+              );
+            } else {
+              return (
+                <MaterialCommunityIcons
+                  name={"face-man-outline"}
+                  size={25}
+                  color="white"
+                />
+              );
+            }
           },
         }}
       />

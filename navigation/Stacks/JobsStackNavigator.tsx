@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { JobsScreen } from "../../screens/Jobs";
@@ -7,11 +7,13 @@ import Colors from "../../constants/Colors";
 
 const JobsStack = createStackNavigator();
 
-export const JobsStackNavigator = () => {
+export const JobsStackNavigator: FunctionComponent = () => {
   return (
     <JobsStack.Navigator
       screenOptions={{
         headerTintColor: Colors.primary,
+        gestureEnabled: true,
+        headerShown: false,
       }}
     >
       <JobsStack.Screen
@@ -22,7 +24,11 @@ export const JobsStackNavigator = () => {
       <JobsStack.Screen
         name="JobDetailScreen"
         component={JobDetailScreen as any}
-        options={{ title: "Job Detail Screem" }}
+        options={{
+          title: "Details",
+          headerShown: true,
+          headerBackTitle: "Back",
+        }}
       />
     </JobsStack.Navigator>
   );

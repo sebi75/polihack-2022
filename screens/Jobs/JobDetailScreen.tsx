@@ -34,7 +34,7 @@ export const JobDetailScreen: FunctionComponent<IJobDetailScreenProps> = ({
   return (
     <ScrollView
       style={{
-        backgroundColor: Colors.dark,
+        backgroundColor: "white",
       }}
     >
       <View style={styles.screen}>{data && <JobCardSection {...data} />}</View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     width,
     height: height * 0.87,
     justifyContent: "center",
-    backgroundColor: Colors.dark,
+    backgroundColor: "white",
   },
   container: {
     flex: 1,
