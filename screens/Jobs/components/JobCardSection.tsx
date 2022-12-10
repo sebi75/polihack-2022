@@ -54,14 +54,14 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
           flexDirection: "column",
         }}
       >
-        <Text style={detailStyles.locationStyles}>Location: {location}</Text>
         <View
           style={{
             padding: 10,
             borderWidth: 1,
-            borderColor: Colors.grey,
-            borderRadius: 7,
-            marginBottom: 10,
+            borderColor: '#f58742',
+            borderRadius: 10,
+            marginBottom: 35,
+            marginTop: 5,
           }}
         >
           <Text style={detailStyles.description}>{description}</Text>
@@ -75,49 +75,51 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
           justifyContent: "center",
           alignItems: "center",
           padding: 10,
+          marginVertical: 3,
           borderWidth: 1,
-          borderColor: Colors.grey,
-          borderRadius: 7,
+          borderColor: '#f58742',
+          borderRadius: 10,
         }}
       >
         <Text
           style={{
-            fontSize: 25,
-            padding: 10,
+            fontSize: 23,
+            padding: 6,
             fontWeight: "500",
             color: "rgb(64,64,64)",
           }}
         >
-          Starting at: {startAtDateFormatted}
+          From: {startAtDateFormatted}
         </Text>
         <Text
           style={{
-            fontSize: 25,
-            padding: 10,
+            fontSize: 23,
+            padding: 6,
             fontWeight: "500",
             color: "rgb(64,64,64)",
           }}
         >
-          Ending at: {endAtDateFormatted}
+          Until: {endAtDateFormatted}
         </Text>
+        <JobCardFooter hoursPerDay={hoursPerDay} jobDuration={jobDuration} />
+        <Text style={detailStyles.locationStyles}>Location: {location}</Text>
       </View>
-
-      <JobCardFooter hoursPerDay={hoursPerDay} jobDuration={jobDuration} />
       <CustomButton
         title="APPLY NOW"
         onPress={handleApplyToJob}
         textStyle={{
-          fontSize: 15,
+          fontSize: 22,
+          fontWeight: '500',
         }}
         buttonStyle={{
-          width: width * 0.8,
+          width: width * 0.5,
           height: 50,
           alignSelf: "center",
-          marginTop: 25,
+          marginTop: 35,
           backgroundColor: Colors.buttonColors.primary,
         }}
       />
-    </View>
+      </View>
   );
 };
 
@@ -142,7 +144,8 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
       >
         <Text
           style={{
-            fontSize: 15,
+            fontSize: 20,
+            padding: 5,
             fontWeight: "500",
             color: "rgb(64,64,64)",
           }}
@@ -161,7 +164,8 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
       >
         <Text
           style={{
-            fontSize: 15,
+            fontSize: 20,
+            padding: 5,
             fontWeight: "500",
             color: "rgb(64,64,64)",
           }}
@@ -188,14 +192,21 @@ const detailStyles = StyleSheet.create({
   },
   title: {
     fontSize: 35,
-    color: "rgb(64,64,64)",
+    color: "#f58742",
     fontWeight: "500",
+    alignSelf: 'center',
     marginBottom: 15,
-    marginTop: 15,
+    marginTop: 25,
+    shadowColor: '#171717',
+    shadowOffset: {width: 2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   description: {
-    fontSize: 15,
+    fontSize: 20,
     color: "rgb(64,64,64)",
+    paddingHorizontal: 10,
+    paddingBottom: 8,
   },
   jobCardFooterContainer: {
     flexDirection: "column",
@@ -205,17 +216,20 @@ const detailStyles = StyleSheet.create({
     paddingVertical: "2%",
   },
   hoursPerDayCmp: {
-    padding: 15,
-    width: "100%",
+    padding: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.1)",
     borderRadius: 10,
   },
   locationStyles: {
-    fontSize: 20,
+    fontSize: 22,
+    align: 'center',
     fontWeight: "500",
     color: "rgb(64,64,64)",
     marginBottom: 10,
+    paddingHorizontal: 25,
   },
   shadowProp: {
     shadowColor: "#171717",

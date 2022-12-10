@@ -58,7 +58,7 @@ export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
         buttonStyle={{
           width: width * 0.4,
           alignSelf: "center",
-          marginTop: 25,
+          marginTop: 17,
           backgroundColor: Colors.buttonColors.primary,
         }}
       />
@@ -114,8 +114,9 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#ffffff",
-    padding: 10,
-    marginVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginTop: 20,
     marginHorizontal: "3%",
     borderRadius: 25,
   },
@@ -126,13 +127,19 @@ const styles = StyleSheet.create({
     marginVertical: "2%",
   },
   title: {
-    fontSize: 25,
+    color: '#f58742',
+    shadowColor: '#171717',
+    shadowOffset: {width: 0.5, height: 1.2},
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    fontSize: 28,
     fontWeight: "500",
-    marginBottom: 15,
+    marginBottom: 10,
   },
   description: {
-    fontSize: 15,
+    fontSize: 18,
     color: "rgb(64,64,64)",
+    marginBottom: 8,
   },
   jobCardFooterContainer: {
     flexDirection: "row",
@@ -145,6 +152,6 @@ const styles = StyleSheet.create({
     padding: 7,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.1)",
-    borderRadius: 10,
+    borderRadius: 12,
   },
 });

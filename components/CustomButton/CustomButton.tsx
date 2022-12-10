@@ -29,11 +29,16 @@ const styles = StyleSheet.create({
   buttonStyle: {
     width: width * 0.25,
     paddingVertical: 7,
-    borderRadius: 10,
+    borderRadius: 15,
+    shadowColor: '#171717',
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
     color: "white",
+    fontSize: 18,
   },
 });
