@@ -1,29 +1,33 @@
 import { auth } from "../../config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-interface UserResult {
-  uid: string;
-  email: string;
-  token: string;
-}
-export type SignUpWithEmailResult = UserResult | undefined;
+/* create user at signup */
+import { createUser } from "../user/createUser";
+import { IUserModel } from "../models";
+import { ErrorMessages } from "../../types";
 
 export const signUpWithEmail = async (
   email: string,
   password: string
-): Promise<SignUpWithEmailResult> => {
+): Promise<IUserModel | undefined> => {
   let returnedUser;
   await createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
-      const user = userCredential.user;
-      const tokenPromise = await user.getIdTokenResult();
+      const signedUpUser = userCredential.user;
+      const tokenPromise = await signedUpUser.getIdTokenResult();
       const token = tokenPromise.token;
 
-      returnedUser = {
-        uid: user.uid,
-        email: user.email,
-        token,
+      if (!token) {
+        throw Error(ErrorMessages.signup_failed);
+      }
+
+      const user: IUserModel = {
+        ...defaultUserDocument,
+        email: signedUpUser.email as string,
+        isVerified: signedUpUser.emailVerified,
       };
+
+      returnedUser = await createUser(user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -32,4 +36,14 @@ export const signUpWithEmail = async (
     });
 
   return returnedUser;
+};
+
+const defaultUserDocument = {
+  age: null,
+  fullName: null,
+  about: "",
+  email: "",
+  isVerified: false,
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
 };

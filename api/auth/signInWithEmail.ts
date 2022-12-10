@@ -1,29 +1,29 @@
 import { auth } from "../../config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-interface UserResult {
-  uid: string;
-  email: string;
-  token: string;
-}
-export type SignInWithEmailResult = UserResult | undefined;
+import { getUser } from "../user/getUser";
+import { setUserToAsyncStorage } from "../../utils/asyncStorage";
+import { IUserModel } from "../models";
 
 export const signInWithEmail = async (
   email: string,
   password: string
-): Promise<SignInWithEmailResult> => {
-  let returnedUser;
+): Promise<IUserModel | undefined> => {
+  let returnedUser: IUserModel | undefined;
   await signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       const user = userCredential.user;
       const tokenPromise = await user.getIdTokenResult();
       const token = tokenPromise.token;
 
-      returnedUser = {
-        uid: user.uid,
-        email: user.email,
-        token,
-      };
+      try {
+        const userFromDb = await getUser(email);
+        returnedUser = userFromDb;
+        if (userFromDb) {
+          //set user in async storage
+          await setUserToAsyncStorage(userFromDb);
+        }
+      } catch (error) {}
     })
     .catch((error) => {
       const errorCode = error.code;
