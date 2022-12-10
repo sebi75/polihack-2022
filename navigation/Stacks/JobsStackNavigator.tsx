@@ -1,20 +1,29 @@
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, } from 'react-native';
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-
-import { Item } from '../../components/JobCard';
+import { JobsScreen } from "../../screens/Jobs";
+import { JobDetailScreen } from "../../screens/Jobs/JobDetailScreen";
+import Colors from "../../constants/Colors";
 
 const JobsStack = createStackNavigator();
 
-export const App = () => {
+export const JobsStackNavigator = () => {
   return (
-    <JobsStack.Navigator>
+    <JobsStack.Navigator
+      screenOptions={{
+        headerTintColor: Colors.primary,
+      }}
+    >
       <JobsStack.Screen
-        name="App"
-        component={App}
-        options={{ title: 'Jobs List'}}
+        name="JobsScreen"
+        component={JobsScreen}
+        options={{ title: "Jobs List" }}
+      />
+      <JobsStack.Screen
+        name="JobDetailScreen"
+        component={JobDetailScreen as any}
+        options={{ title: "Job Detail Screem" }}
       />
     </JobsStack.Navigator>
   );
-}
+};

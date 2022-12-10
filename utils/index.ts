@@ -4,3 +4,5 @@ export {
   setUserToAsyncStorage,
 } from "./asyncStorage";
 export { guid } from "./randomId";
+
+export { formatDateFromDatenow } from "./formatDate";

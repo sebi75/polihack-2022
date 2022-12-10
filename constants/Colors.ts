@@ -4,6 +4,7 @@ export default {
   opWhite: "rgba(255, 255, 255, 0.5)",
   errorColor: "#a8364b",
   dark: "#1f1f1f",
+  grey: "#d9d9d9",
   buttonColors: {
     primary: "#f58742",
   },
