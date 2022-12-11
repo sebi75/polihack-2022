@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useState } from "react";
 import {
   Text,
-  Dimensions,
-  StyleSheet,
-  ActivityIndicator,
   View,
+  Alert,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -17,11 +18,32 @@ import { useGetUser } from "../../hooks/useGetUser";
 import { ErrorComponent } from "../../components/ErrorComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import { CustomButton } from "../../components";
+import { signOut } from "../../api";
 const { width, height } = Dimensions.get("window");
 
 export const ProfileScreen: FunctionComponent = () => {
   const { data, error, isLoading: isGetUserLoading } = useGetUser();
   const navigation: any = useNavigation();
+
+  const handleSignOutClick = async () => {
+    Alert.alert("Are you sure?", "Are you sure you want to sign out?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: async () => {
+          try {
+            const res = await signOut();
+            navigation.navigate("AuthStackNavigator");
+          } catch (error) {
+            Alert.alert("Oops! Something went wrong!");
+          }
+        },
+      },
+    ]);
+  };
 
   const picture =
     data?.profilePicture != "" && data?.profilePicture
@@ -45,7 +67,7 @@ export const ProfileScreen: FunctionComponent = () => {
   }
 
   const hasFullname = data?.fullName != "" && data?.fullName;
-  const hasAge = data?.age && data?.age != 0;
+  const hasAge = data?.age && data?.age != "";
   const hasAbout = data?.about != "" && data?.about;
 
   return (
@@ -146,6 +168,17 @@ export const ProfileScreen: FunctionComponent = () => {
           height: 50,
         }}
         onPress={handleEditProfileClick}
+      />
+      <CustomButton
+        title={"Sign Out"}
+        buttonStyle={{
+          backgroundColor: "rgb(64,64,64)",
+          marginTop: 50,
+          width: width * 0.5,
+          alignSelf: "center",
+          height: 50,
+        }}
+        onPress={handleSignOutClick}
       />
     </ScrollView>
   );

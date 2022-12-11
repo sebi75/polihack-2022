@@ -43,6 +43,7 @@ export const JobsScreen: FunctionComponent = () => {
             companyId,
             description,
             employerId,
+            employerName,
             estimatedEndDate,
             estimatedStartDate,
             hoursPerDay,

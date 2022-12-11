@@ -20,6 +20,8 @@ import {
 } from "../../../api/models/JobApplicationModel";
 import { createJobApplication } from "../../../api/jobs/applyToJobs";
 import { isUserAbleToApply } from "../../../api/user/isAbleToApply";
+import { queryClient } from "../../../App";
+import { Collections } from "../../../types";
 
 interface IJobCardItemProps {
   title: string;
@@ -101,7 +103,10 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
 
     try {
       const response = await createJobApplication(application);
-
+      queryClient.invalidateQueries([
+        Collections.jobApplications,
+        data?.userId,
+      ]);
       Alert.alert(
         "Successfull",
         "You have successfully applied to this job, watch for updates from the employer"

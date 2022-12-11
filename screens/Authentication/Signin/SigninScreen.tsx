@@ -4,6 +4,7 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useEffect, useState } from "react";
 
@@ -59,7 +60,7 @@ export const SigninScreen: React.FC = () => {
         }
       }
     } catch (error: any) {
-      throw new Error(error.message);
+      Alert.alert("Oops! Something went wrong!");
     }
   };
 
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   redirectToSigninStyle: {
-    fontSize: 13,
+    fontSize: 18,
     textDecorationLine: "underline",
     marginTop: 10,
     color: Colors.primary,

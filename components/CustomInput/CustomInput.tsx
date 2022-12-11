@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
 
   errorText: {
     fontSize: 14,
-    color: Colors.errorColor,
+    color: Colors.buttonColors.danger,
   },
 });

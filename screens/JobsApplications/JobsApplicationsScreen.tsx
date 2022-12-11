@@ -1,9 +1,10 @@
 import {
   View,
+  Text,
   FlatList,
+  Dimensions,
   StyleSheet,
   ActivityIndicator,
-  Dimensions,
 } from "react-native";
 
 import { FunctionComponent } from "react";
@@ -18,6 +19,7 @@ import { Collections } from "../../types";
 import { useGetUser } from "../../hooks";
 
 import { GetUserApplicationsResult } from "../../api/jobs/getUserApplications";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface IJobsApplicationsScreenProps {
   route: {
@@ -41,8 +43,24 @@ export const JobsApplicationsScreen: FunctionComponent<
 
   if (isUserApplicationsLoading) {
     return (
-      <View style={styles.screen}>
+      <View style={[styles.screen, { justifyContent: "center" }]}>
         <ActivityIndicator size={"large"} color={Colors.primary} />
+      </View>
+    );
+  }
+
+  if (userApplicationsData && userApplicationsData.length === 0) {
+    return (
+      <View style={[styles.screen, { justifyContent: "center" }]}>
+        <Text
+          style={{
+            color: Colors.primary,
+            fontSize: 18,
+            textAlign: "center",
+          }}
+        >
+          You have not applied to any job offers yet.
+        </Text>
       </View>
     );
   }

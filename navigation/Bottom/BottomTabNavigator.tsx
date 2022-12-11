@@ -7,10 +7,13 @@ import { JobsStackNavigator } from "../Stacks/JobsStackNavigator";
 import { Platform, View } from "react-native";
 import ProfileStackNavigator from "../Stacks/ProfileStack";
 import { JobsApplicationsStackNavigator } from "../Stacks/JobApplicationsStack";
+import { useGetUser } from "../../hooks";
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
+  const { data: userData } = useGetUser();
+
   return (
     <Tab.Navigator
       screenOptions={() => {

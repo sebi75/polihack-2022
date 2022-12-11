@@ -2,6 +2,7 @@ export default {
   dark: "#1f1f1f",
   primary: "#f58742",
   yellow: "rgb(237, 172, 52)",
+  textColor: "rgb(64,64,64)",
   buttonColors: {
     grey: "#d9d9d9",
     errorColor: "#a8364b",

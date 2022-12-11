@@ -18,6 +18,7 @@ interface IJobCardItemProps {
   estimatedEndDate: number;
   estimatedStartDate: number;
   hoursPerDay: number;
+  employerName: string;
   jobDuration: number;
   jobOfferId: string;
   employerId: string;
@@ -30,6 +31,7 @@ export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
   employerId,
   estimatedEndDate,
   estimatedStartDate,
+  employerName,
   hoursPerDay,
   jobDuration,
   jobOfferId,
@@ -50,6 +52,15 @@ export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
   return (
     <TouchableOpacity onPress={handleJobCardPress} style={styles.card}>
       <Text style={styles.title}>{title}</Text>
+      <Text
+        style={{
+          fontSize: 14,
+          color: Colors.textColor,
+          marginBottom: 10,
+        }}
+      >
+        Job listed by: {employerName}
+      </Text>
       <Text style={styles.description}>{descriptionText}</Text>
       <JobCardFooter hoursPerDay={hoursPerDay} jobDuration={jobDuration} />
       <CustomButton

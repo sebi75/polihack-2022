@@ -24,7 +24,11 @@ export const JobsApplicationsStackNavigator: FunctionComponent = () => {
           userId: userData?.userId,
         }}
         component={JobsApplicationsScreen as any}
-        options={{ title: "Applications", headerLeft: () => undefined }}
+        options={{
+          title: "Applications",
+          headerLeft: () => undefined,
+          headerShown: false,
+        }}
       />
       <JobsApplicationsStack.Screen
         name="JobDetailScreen"
