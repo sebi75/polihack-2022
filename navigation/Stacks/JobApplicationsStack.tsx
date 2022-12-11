@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { JobsApplicationsScreen } from "../../screens/JobsApplications/JobsApplicationsScreen";

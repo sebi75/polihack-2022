@@ -70,20 +70,31 @@ export const JobAppliedItem: FunctionComponent<IJobApliedItemProps> = ({
     },
   };
 
-  const descriptionText = `${description.slice(0, 20)}....`;
   return (
     <TouchableOpacity onPress={handleJobCardPress} style={styles.card}>
-      <View>
-        <Text>Application status:</Text>
+      <Text style={styles.title}>{title}</Text>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+          Application status:
+        </Text>
 
         <Text
           style={{
             padding: 10,
-            width: width * 0.2,
+            marginLeft: 7,
             borderRadius: 20,
             marginBottom: 7,
             marginTop: 7,
             color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             overflow: "hidden",
             backgroundColor:
               statusStylings[status as JobApplicationStatusEnum]
@@ -93,8 +104,7 @@ export const JobAppliedItem: FunctionComponent<IJobApliedItemProps> = ({
           {status}
         </Text>
       </View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{descriptionText}</Text>
+      <Text style={styles.description}>{description}</Text>
       <JobCardFooter hoursPerDay={hoursPerDay} jobDuration={jobDuration} />
       <CustomButton
         title="See details"
@@ -179,7 +189,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     fontSize: 28,
     fontWeight: "500",
-    marginBottom: 10,
   },
   description: {
     fontSize: 18,

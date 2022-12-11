@@ -71,7 +71,7 @@ export const JobsApplicationsScreen: FunctionComponent<
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         onRefresh={() => {
-          queryClient.invalidateQueries([Collections.jobOffers]);
+          queryClient.invalidateQueries([Collections.jobApplications, userId]);
         }}
         refreshing={isUserApplicationsLoading}
         data={userApplicationsData as any}

@@ -94,6 +94,7 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
             fontSize: 15,
             fontWeight: "500",
             color: "rgb(64,64,64)",
+            paddingVertical: 10,
           }}
         >
           Norm: {`${hoursPerDay}`}h/day
@@ -113,6 +114,7 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
             fontSize: 15,
             fontWeight: "500",
             color: "rgb(64,64,64)",
+            paddingVertical: 10,
           }}
         >
           Position Duration: {`${jobDuration}`} days
