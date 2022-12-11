@@ -43,7 +43,7 @@ export const signUpWithEmail = async (
 const defaultUserDocument = {
   age: null,
   fullName: null,
-  about: "",
+  about: null,
   email: "",
   isVerified: false,
   createdAt: Date.now(),

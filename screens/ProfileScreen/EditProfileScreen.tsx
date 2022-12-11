@@ -28,40 +28,52 @@ import { editUser } from "../../api/user/editUser";
 import { queryClient } from "../../App";
 import { Collections } from "../../types";
 
+import { getUserFromAsyncStorage } from "../../utils/asyncStorage";
+import { IUserModel } from "../../api/models";
+
 const { width, height } = Dimensions.get("window");
 export const EditProfileScreen: FunctionComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userData, setUserData] = useState<IUserModel | null>(null);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const { data, error, isLoading: isGetUserLoading } = useGetUser();
   const navigation: any = useNavigation();
 
   const {
     control,
-    handleSubmit,
     getValues,
     formState: { errors },
     reset,
   } = useForm({
     defaultValues: {
-      fullName: data?.fullName || "",
-      age: data?.age || 18,
-      about: data?.about || "",
+      fullName: "",
+      age: "",
+      about: "",
     },
   });
 
-  console.log(data?.fullName);
-
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const formValues = getValues();
-    const userData = {
-      ...data,
+
+    const userDataa = {
+      ...userData,
       ...formValues,
-      profilePicture: imageUri || data?.profilePicture,
+      profilePicture: imageUri || userData?.profilePicture,
     };
+
     try {
-      const response = editUser(userData, data?.userId as string);
-      console.log(response);
-      queryClient.invalidateQueries([Collections.users]);
+      setIsLoading(true);
+      const response = await editUser(userDataa, data?.userId as string);
+      setIsLoading(false);
+      Alert.alert("Success", "Profile updated successfully.", [
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.goBack();
+          },
+        },
+      ]);
+      queryClient.invalidateQueries({ queryKey: [Collections.users] });
     } catch (error) {}
   };
 
@@ -118,17 +130,26 @@ export const EditProfileScreen: FunctionComponent = () => {
       : avatarURL;
 
   useEffect(() => {
-    if (!data) {
+    getUserFromAsyncStorage().then((user) => {
+      if (user) {
+        setUserData(user);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!userData) {
       return;
     }
-    reset({
-      fullName: data?.fullName || "",
-      age: data?.age || 18,
-      about: data?.about || "",
-    });
-  }, [data]);
 
-  if (isGetUserLoading) {
+    reset({
+      fullName: userData?.fullName || "",
+      age: userData?.age || "",
+      about: userData?.about || "",
+    });
+  }, [userData]);
+
+  if (isGetUserLoading || isLoading) {
     return (
       <View style={styles.profileScreen}>
         <ActivityIndicator size={"large"} color={Colors.primary} />

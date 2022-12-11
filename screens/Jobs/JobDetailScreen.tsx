@@ -1,6 +1,6 @@
 import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 
 import Colors from "../../constants/Colors";
 

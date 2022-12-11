@@ -5,6 +5,7 @@ interface CustomButtonProps {
   title: string;
   buttonStyle?: any;
   textStyle?: any;
+  disable?: boolean;
 }
 
 const { width } = Dimensions.get("window");
@@ -13,12 +14,14 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   onPress,
   buttonStyle,
   textStyle,
+  disable,
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
-      style={[styles.buttonStyle, buttonStyle]}
+      activeOpacity={0.9}
+      style={[styles.buttonStyle, buttonStyle, { opacity: disable ? 0.4 : 1 }]}
       onPress={onPress}
+      disabled={disable}
     >
       <Text style={[styles.buttonText, textStyle]}>{title}</Text>
     </TouchableOpacity>

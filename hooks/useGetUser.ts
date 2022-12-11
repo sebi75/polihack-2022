@@ -4,7 +4,7 @@ import { getUserFromAsyncStorage } from "../utils";
 
 export const useGetUser = () => {
   return useQuery([Collections.users], () => getUserFromAsyncStorage(), {
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 1,
     retry: false,
   });
 };

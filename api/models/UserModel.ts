@@ -1,11 +1,11 @@
 export interface IUserModel {
-  about: string;
   email: string;
+  userId: string;
   createdAt: number;
   updatedAt: number;
-  userId: string;
-  age: number | null;
+  age: string | null;
   isVerified: boolean;
-  fullName: string | null;
+  about: string | null;
   profilePicture: string;
+  fullName: string | null;
 }
