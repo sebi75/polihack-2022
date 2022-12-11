@@ -133,12 +133,12 @@ const styles = StyleSheet.create({
     height: "auto",
   },
   mainTextLabelStyle: {
-    fontSize: 31,
-    fontWeight: "bold",
+    fontSize: 30,
+    fontWeight: "700",
     color: Colors.primary,
   },
   redirectToSigninStyle: {
-    fontSize: 13,
+    fontSize: 18,
     textDecorationLine: "underline",
     marginTop: 10,
     color: Colors.primary,

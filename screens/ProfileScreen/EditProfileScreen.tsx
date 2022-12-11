@@ -151,7 +151,7 @@ export const EditProfileScreen: FunctionComponent = () => {
               uri: picture,
             }}
             style={{
-              marginBottom: 5,
+              marginBottom: 10,
             }}
           />
           <CustomButton
@@ -159,6 +159,8 @@ export const EditProfileScreen: FunctionComponent = () => {
             onPress={pickImageAsync}
             buttonStyle={{
               backgroundColor: Colors.primary,
+              width: width * 0.5,
+              marginLeft: 60,
             }}
           />
         </TouchableOpacity>
@@ -225,6 +227,7 @@ export const EditProfileScreen: FunctionComponent = () => {
               {
                 width: width * 0.8,
                 height: height * 0.1,
+                marginTop: 0,
               },
             ]}
             onBlur={onBlur}
@@ -241,9 +244,10 @@ export const EditProfileScreen: FunctionComponent = () => {
         title={"SAVE"}
         buttonStyle={{
           backgroundColor: Colors.primary,
-          width: "100%",
+          width: "50%",
           height: 50,
           marginTop: 50,
+          marginLeft: '25%',
         }}
         onPress={onSubmit}
       />
@@ -263,30 +267,33 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "row",
+    flexDirection: "column",
     padding: 15,
   },
   input: {
-    paddingHorizontal: 2,
+    fontSize: 16,
+    paddingHorizontal: 5,
     paddingVertical: 5,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: "rgba(255,255,255,0.5)",
-    marginTop: 10,
-    borderRadius: 7,
+    marginTop: 15,
+    borderRadius: 8,
     marginLeft: 7,
-    width: width * 0.6,
+    width: width * 0.8,
     height: 40,
     color: "#fff",
   },
   label: {
-    fontWeight: "bold",
+    fontSize: 20,
+    fontWeight: "500",
     marginVertical: 5,
     color: "rgba(255,255,255,0.85)",
   },
   profileCard: {
-    width: width * 0.3,
+    width: width * 0.7,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: 'row',
   },
 });

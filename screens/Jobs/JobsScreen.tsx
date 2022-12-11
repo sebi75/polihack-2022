@@ -50,6 +50,8 @@ export const JobsScreen: FunctionComponent = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    //paddingTop: '5%',
+    paddingBottom: '5%',
     backgroundColor: Colors.dark,
     alignItems: "center",
   },

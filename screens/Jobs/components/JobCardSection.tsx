@@ -83,7 +83,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
       >
         <Text
           style={{
-            fontSize: 23,
+            fontSize: 18,
             padding: 6,
             fontWeight: "500",
             color: "rgb(64,64,64)",
@@ -93,7 +93,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
         </Text>
         <Text
           style={{
-            fontSize: 23,
+            fontSize: 18,
             padding: 6,
             fontWeight: "500",
             color: "rgb(64,64,64)",
@@ -144,7 +144,7 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
       >
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             padding: 5,
             fontWeight: "500",
             color: "rgb(64,64,64)",
@@ -164,7 +164,7 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
       >
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             padding: 5,
             fontWeight: "500",
             color: "rgb(64,64,64)",
@@ -191,7 +191,7 @@ const detailStyles = StyleSheet.create({
     marginVertical: "2%",
   },
   title: {
-    fontSize: 35,
+    fontSize: 25,
     color: "#f58742",
     fontWeight: "500",
     alignSelf: 'center',
@@ -224,7 +224,7 @@ const detailStyles = StyleSheet.create({
     borderRadius: 10,
   },
   locationStyles: {
-    fontSize: 22,
+    fontSize: 18,
     align: 'center',
     fontWeight: "500",
     color: "rgb(64,64,64)",

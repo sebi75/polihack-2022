@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     height: "auto",
   },
   mainTextLabelStyle: {
-    fontSize: 31,
+    fontSize: 30,
     fontWeight: "bold",
     color: Colors.primary,
   },
