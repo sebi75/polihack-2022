@@ -7,6 +7,7 @@ export const getUserFromAsyncStorage = async (): Promise<IUserModel | null> => {
     if (user) {
       const parsedUser = JSON.parse(user);
 
+      console.log(parsedUser, "returning user from Async Storage");
       return parsedUser;
     }
   } catch (error) {

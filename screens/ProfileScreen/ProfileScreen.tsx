@@ -112,7 +112,7 @@ export const ProfileScreen: FunctionComponent = () => {
         <Text style={styles.score} />
       </View>
       <View>
-        {(!hasAbout || !hasAge || !hasFullname) && (
+        {!hasAbout || !hasAge || !hasFullname ? (
           <Text
             style={{
               color: "rgba(194, 67, 58, 0.70)",
@@ -122,6 +122,17 @@ export const ProfileScreen: FunctionComponent = () => {
             }}
           >
             Please complete your profile to be able to apply for jobs
+          </Text>
+        ) : (
+          <Text
+            style={{
+              fontSize: 22,
+              fontWeight: "bold",
+              marginBottom: 5,
+              color: "rgba(92, 184, 17, 0.70)",
+            }}
+          >
+            Congratulations! You are ready to apply for jobs
           </Text>
         )}
       </View>

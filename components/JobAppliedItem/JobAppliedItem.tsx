@@ -10,11 +10,13 @@ import Colors from "../../constants/Colors";
 
 import { useNavigation } from "@react-navigation/native";
 import { CustomButton } from "../CustomButton/CustomButton";
+import { JobApplicationStatusEnum } from "../../api/models/JobApplicationModel";
 
-interface IJobCardItemProps {
+interface IJobApliedItemProps {
   title: string;
   description: string;
   image?: string;
+  status: string;
   estimatedEndDate: number;
   estimatedStartDate: number;
   hoursPerDay: number;
@@ -22,10 +24,16 @@ interface IJobCardItemProps {
   jobOfferId: string;
   employerId: string;
   location: string;
+  companyId: string;
+  createdAt: number;
+  jobApplicationId: string;
+  updatedAt: number;
+  userId: string;
 }
 
 const { width, height } = Dimensions.get("window");
-export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
+export const JobAppliedItem: FunctionComponent<IJobApliedItemProps> = ({
+  companyId,
   description,
   employerId,
   estimatedEndDate,
@@ -35,7 +43,11 @@ export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
   jobOfferId,
   location,
   title,
-  image,
+  createdAt,
+  jobApplicationId,
+  status,
+  updatedAt,
+  userId,
 }) => {
   const navigator: any = useNavigation();
   //navigate user to the job detail screen
@@ -46,9 +58,41 @@ export const JobCardItem: FunctionComponent<IJobCardItemProps> = ({
     });
   };
 
-  const descriptionText = `${description.slice(0, 100)}....`;
+  const statusStylings = {
+    [JobApplicationStatusEnum.pending]: {
+      backgroundColor: Colors.yellow,
+    },
+    [JobApplicationStatusEnum.accepted]: {
+      backgroundColor: Colors.buttonColors.success,
+    },
+    [JobApplicationStatusEnum.rejected]: {
+      backgroundColor: Colors.buttonColors.danger,
+    },
+  };
+
+  const descriptionText = `${description.slice(0, 20)}....`;
   return (
     <TouchableOpacity onPress={handleJobCardPress} style={styles.card}>
+      <View>
+        <Text>Application status:</Text>
+
+        <Text
+          style={{
+            padding: 10,
+            width: width * 0.2,
+            borderRadius: 20,
+            marginBottom: 7,
+            marginTop: 7,
+            color: "white",
+            overflow: "hidden",
+            backgroundColor:
+              statusStylings[status as JobApplicationStatusEnum]
+                .backgroundColor,
+          }}
+        >
+          {status}
+        </Text>
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{descriptionText}</Text>
       <JobCardFooter hoursPerDay={hoursPerDay} jobDuration={jobDuration} />
@@ -114,6 +158,8 @@ const JobCardFooter: FunctionComponent<IJobCardFooterProps> = ({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#ffffff",
+    width: width,
+    maxWidth: width,
     paddingHorizontal: 20,
     paddingVertical: 15,
     marginTop: 20,
@@ -144,7 +190,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: "5%",
     paddingVertical: "2%",
   },
   hoursPerDayCmp: {

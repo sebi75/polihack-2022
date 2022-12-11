@@ -1,9 +1,25 @@
-import { Text, View, StyleSheet, Dimensions } from "react-native";
-import { FunctionComponent, useMemo } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import Colors from "../../../constants/Colors";
 import { CustomButton } from "../../../components";
 
-import { formatDateFromDatenow } from "../../../utils";
+import { formatDateFromDatenow, guid } from "../../../utils";
+import { isUserAlreadyApplied } from "../../../api/jobs/isUserAlreadyApplied";
+import { useGetUser } from "../../../hooks";
+
+import {
+  IJobApplicationModel,
+  JobApplicationStatusEnum,
+} from "../../../api/models/JobApplicationModel";
+import { createJobApplication } from "../../../api/jobs/applyToJobs";
+import { isUserAbleToApply } from "../../../api/user/isAbleToApply";
 
 interface IJobCardItemProps {
   title: string;
@@ -18,7 +34,7 @@ interface IJobCardItemProps {
   location: string;
 }
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
   description,
   employerId,
@@ -31,8 +47,68 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
   title,
   image,
 }) => {
-  const handleApplyToJob = () => {
-    console.log("handle apply to job");
+  const { data } = useGetUser();
+  const [isUserAbleToApplyLoading, setisUserAbleToApplyLoading] =
+    useState<boolean>(false);
+  const [isUserAbleToApplyData, setisUserAbleToApplyData] =
+    useState<boolean>(false);
+
+  const handleApplyJobsChecks = async () => {
+    try {
+      const isAlreadyApplied = await isUserAlreadyApplied(
+        data?.userId as string,
+        jobOfferId
+      );
+
+      if (isAlreadyApplied) {
+        Alert.alert("You have already applied to this job");
+      } else {
+        Alert.alert("Are you sure you want to apply to this job?", "", [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "Apply",
+            onPress: async () => {
+              await handleApplyJob();
+            },
+          },
+        ]);
+      }
+    } catch (error) {
+      Alert.alert("Oops! Something went wrong.");
+    }
+  };
+
+  if (isUserAbleToApplyLoading) {
+    return (
+      <View style={detailStyles.card}>
+        <ActivityIndicator size={"large"} color={Colors.primary} />
+      </View>
+    );
+  }
+
+  const handleApplyJob = async () => {
+    const application: IJobApplicationModel = {
+      status: JobApplicationStatusEnum.pending,
+      createdAt: Date.now(),
+      jobApplicationId: guid(),
+      jobOfferId: jobOfferId,
+      updatedAt: Date.now(),
+      userId: data?.userId as string,
+    };
+
+    try {
+      const response = await createJobApplication(application);
+
+      Alert.alert(
+        "Successfull",
+        "You have successfully applied to this job, watch for updates from the employer"
+      );
+    } catch (error) {
+      Alert.alert("Oops! Something went wrong.");
+    }
   };
 
   const startAtDateFormatted = useMemo(() => {
@@ -44,6 +120,31 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
     const date = formatDateFromDatenow(+estimatedEndDate);
     return date;
   }, []);
+
+  const handleIsAbleToApply = async () => {
+    try {
+      const res = await isUserAbleToApply(data?.userId as string);
+      setisUserAbleToApplyData(res);
+
+      if (!res) {
+        Alert.alert(
+          "You are not allowed to apply to jobs",
+          "You need to complete your profile before you can apply to jobs"
+        );
+      }
+    } catch (error) {
+      Alert.alert("Oops! Something went wrong!");
+    }
+  };
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    handleIsAbleToApply();
+  }, [data, isUserAbleToApplyData]);
+
+  console.log({ isUserAbleToApplyData });
 
   return (
     <View style={detailStyles.card}>
@@ -58,7 +159,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
           style={{
             padding: 10,
             borderWidth: 1,
-            borderColor: '#f58742',
+            borderColor: "#f58742",
             borderRadius: 10,
             marginBottom: 35,
             marginTop: 5,
@@ -77,7 +178,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
           padding: 10,
           marginVertical: 3,
           borderWidth: 1,
-          borderColor: '#f58742',
+          borderColor: "#f58742",
           borderRadius: 10,
         }}
       >
@@ -106,10 +207,11 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
       </View>
       <CustomButton
         title="APPLY NOW"
-        onPress={handleApplyToJob}
+        onPress={handleApplyJobsChecks}
+        disable={!isUserAbleToApplyData}
         textStyle={{
           fontSize: 22,
-          fontWeight: '500',
+          fontWeight: "500",
         }}
         buttonStyle={{
           width: width * 0.5,
@@ -119,7 +221,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
           backgroundColor: Colors.buttonColors.primary,
         }}
       />
-      </View>
+    </View>
   );
 };
 
@@ -194,11 +296,11 @@ const detailStyles = StyleSheet.create({
     fontSize: 25,
     color: "#f58742",
     fontWeight: "500",
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 15,
     marginTop: 25,
-    shadowColor: '#171717',
-    shadowOffset: {width: 2, height: 4},
+    shadowColor: "#171717",
+    shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
@@ -225,7 +327,7 @@ const detailStyles = StyleSheet.create({
   },
   locationStyles: {
     fontSize: 18,
-    align: 'center',
+    align: "center",
     fontWeight: "500",
     color: "rgb(64,64,64)",
     marginBottom: 10,

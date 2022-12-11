@@ -6,6 +6,7 @@ import { BlurView } from "expo-blur";
 import { JobsStackNavigator } from "../Stacks/JobsStackNavigator";
 import { Platform, View } from "react-native";
 import ProfileStackNavigator from "../Stacks/ProfileStack";
+import { JobsApplicationsStackNavigator } from "../Stacks/JobApplicationsStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +48,33 @@ export const BottomTabNavigator = () => {
                 color={"white"}
               />
             );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="JobsApplicationsStackNavigator"
+        component={JobsApplicationsStackNavigator}
+        options={{
+          title: "Applications",
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => {
+            if (focused) {
+              return (
+                <MaterialCommunityIcons
+                  name={"ab-testing"}
+                  size={25}
+                  color="white"
+                />
+              );
+            } else {
+              return (
+                <MaterialCommunityIcons
+                  name={"ab-testing"}
+                  size={25}
+                  color="white"
+                />
+              );
+            }
           },
         }}
       />

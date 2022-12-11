@@ -9,18 +9,37 @@ import {
 import { FunctionComponent } from "react";
 
 import Colors from "../../constants/Colors";
-import { useGetJobOffers } from "../../hooks/useGetJobOffers";
+import { useGetUserApplications } from "../../hooks/useGetUserApplicationts";
 import { IJobOfferModel } from "../../api/models/JobOfferModel";
 
-import { JobCardItem } from "../../components/JobCard";
+import { JobAppliedItem } from "../../components/JobAppliedItem";
 import { queryClient } from "../../App";
 import { Collections } from "../../types";
+import { useGetUser } from "../../hooks";
+
+import { GetUserApplicationsResult } from "../../api/jobs/getUserApplications";
+
+interface IJobsApplicationsScreenProps {
+  route: {
+    params: {
+      userId: string;
+    };
+  };
+}
 
 const { width } = Dimensions.get("window");
-export const JobsScreen: FunctionComponent = () => {
-  const { data, error, isLoading } = useGetJobOffers();
+export const JobsApplicationsScreen: FunctionComponent<
+  IJobsApplicationsScreenProps
+> = ({ route }) => {
+  const { userId } = route.params;
+  const { data: userData, isLoading: isUserDataLoading } = useGetUser();
+  const {
+    data: userApplicationsData,
+    error,
+    isLoading: isUserApplicationsLoading,
+  } = useGetUserApplications(userId);
 
-  if (isLoading) {
+  if (isUserApplicationsLoading) {
     return (
       <View style={styles.screen}>
         <ActivityIndicator size={"large"} color={Colors.primary} />
@@ -36,9 +55,9 @@ export const JobsScreen: FunctionComponent = () => {
         onRefresh={() => {
           queryClient.invalidateQueries([Collections.jobOffers]);
         }}
-        refreshing={isLoading}
-        data={data}
-        renderItem={({ item }: { item: IJobOfferModel }) => {
+        refreshing={isUserApplicationsLoading}
+        data={userApplicationsData as any}
+        renderItem={({ item }: { item: GetUserApplicationsResult }) => {
           const {
             companyId,
             description,
@@ -50,8 +69,13 @@ export const JobsScreen: FunctionComponent = () => {
             jobOfferId,
             location,
             title,
+            createdAt,
+            jobApplicationId,
+            status,
+            updatedAt,
+            userId,
           } = item; // props destructuring
-          return <JobCardItem {...item} />;
+          return <JobAppliedItem {...item} />;
         }}
       />
     </View>
@@ -61,8 +85,7 @@ export const JobsScreen: FunctionComponent = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    //paddingTop: '5%',
-    paddingBottom: "5%",
+    maxWidth: width,
     backgroundColor: Colors.dark,
     alignItems: "center",
   },
