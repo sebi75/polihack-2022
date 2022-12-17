@@ -1,0 +1,1 @@
+export { default as exampleRouter } from './exampleRoute'
