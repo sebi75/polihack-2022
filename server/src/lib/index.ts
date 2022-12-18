@@ -1,0 +1,1 @@
+export { s3Instance } from './sampleS3Client'
