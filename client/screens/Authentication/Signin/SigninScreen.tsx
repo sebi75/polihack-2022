@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
 		height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: Colors.dark,
+		backgroundColor: Colors.background,
 	},
 	inputContainer: {
 		width: width * 0.8,

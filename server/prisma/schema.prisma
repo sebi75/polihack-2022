@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId         String    @id @default(cuid())
+  role           String
+  firstName      String?
+  lastName       String?
+  isVerified     Boolean?
+  isEmployer     Boolean?
+  email          String    @unique
+  profilePicture String?
+  hashedPassword String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+  birthday       DateTime?
+  location       String?
+  about          String?
+
+  ListingApplications ListingApplications[]
+}
+
+model Listing {
+  listingId         String   @id @default(cuid())
+  title             String
+  description       String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+  jobDurationInDays Int
+  hoursPerDay       Int
+  photoURL          String
+  employerId        String
+  startDate         Int
+  endDate           Int
+
+  ListingApplications ListingApplications[]
+  Employer            Employer              @relation(fields: [employerId], references: [employerId])
+}
+
+model ListingApplications {
+  listingId String
+  userId    String
+  status    String
+  createdAt DateTime @default(now())
+  Listing   Listing  @relation(fields: [listingId], references: [listingId])
+  User      User     @relation(fields: [userId], references: [userId])
+
+  @@id([listingId, userId])
+}
+
+model Employer {
+  employerId     String    @id @default(cuid())
+  name           String
+  about          String
+  email          String
+  rating         Float
+  location       String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+  isVerified     Boolean
+  profilePicture String
+  activityDomain String
+  listings       Listing[]
+}
