@@ -14,12 +14,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 /* ROUTES COME HERE */
 import { exampleRouter } from './routes'
+import { listingsRouter } from './routes/listingRoutes'
 import { s3Instance } from './lib'
 import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3'
 import multer from 'multer'
+import { LISTINGS } from './static/endpoints';
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
+
+app.use(LISTINGS, listingsRouter)
 
 app.post("/upload", upload.single("file"), (req, res) => {
     // req.file contains the metadata of the uploaded file + buffer that is the actual file contents

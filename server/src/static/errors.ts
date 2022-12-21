@@ -1,6 +1,7 @@
 export enum ErrorTypesEnum {
     //Server
     SERVER_INTERNAL_ERROR = 'SERVER_INTERNAL_ERROR',
+    VALIDATION_ERROR = 'VALIDATION_ERROR',
 
     // Auth
     AUTH_INVALID_EMAIL = 'AUTH_INVALID_EMAIL',
@@ -26,6 +27,7 @@ export enum ErrorTypesEnum {
 export enum ErrorMessagesEnum {
     //Server
     SERVER_INTERNAL_ERROR = 'Internal server error',
+    VALIDATION_ERROR = 'Validation error',
 
     // Auth
     AUTH_INVALID_EMAIL = 'Invalid email',

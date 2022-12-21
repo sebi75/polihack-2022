@@ -10,7 +10,7 @@ export type ListingResultType = {
     description: string;
     employerName: string;
     jobDurationInDays: number;
-  }
+};
 
 type ExcludedKeysUnion = 'location' | 'employerName' // we get the location by getting the profile
 // of the employer at listing creation time
