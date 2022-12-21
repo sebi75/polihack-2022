@@ -1,0 +1,1 @@
+export type { UserCreate, UserResultType } from './User'
