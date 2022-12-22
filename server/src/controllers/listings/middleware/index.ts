@@ -1,1 +1,1 @@
-export { zodCreateListingValidator } from './createListingValidationLayer'
+export { zodCreateListingValidator } from './createListingValidationLayer';
