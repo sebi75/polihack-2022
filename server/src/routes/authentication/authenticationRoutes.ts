@@ -1,29 +1,30 @@
 import express from 'express';
-import { signinController, signupController } from '../../controllers/authentication';
+import { singinController, signupController } from '../../controllers/authentication';
+
 import {
   zodSignupValidator,
   isValidAgeMiddleware,
   isUserExistentMiddleware,
-} from '../../controllers/authentication/emailAndPassword/signup';
-import { zodSigninValidator } from '../../controllers/authentication/emailAndPassword/signin';
+} from '../../controllers/authentication';
+
+import { zodSigninValidator, isUserNonExistentMiddleware } from '../../controllers/authentication';
 import { EndpointsEnum } from '../../static/endpoints';
 
 import { genericValidationMiddleware } from '../../utils/validation';
 
-const authenticationRoutes = express.Router();
+export const authenticationRouter = express.Router();
 
-authenticationRoutes.post(
-  EndpointsEnum.SIGNUP,
+authenticationRouter.post(
+  `/${EndpointsEnum.SIGNUP}`,
   genericValidationMiddleware(zodSignupValidator),
   isUserExistentMiddleware,
   isValidAgeMiddleware,
   signupController,
 );
 
-authenticationRoutes.post(
+authenticationRouter.post(
   EndpointsEnum.SIGNIN,
   genericValidationMiddleware(zodSigninValidator),
-  signinController,
+  isUserNonExistentMiddleware, // this middleware adds a level of abstraction from the main controller,
+  singinController, // so that the controller doesn't have to worry about checking it
 );
-
-export default authenticationRoutes;

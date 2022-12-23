@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express';
 import { SigninControllerRequest } from '../types';
 
-import { prisma } from '../../../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../../static';
+import { prisma } from '../../../../lib';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
 
 export const isUserNonExistentMiddleware = async (
   req: SigninControllerRequest,
@@ -24,6 +24,7 @@ export const isUserNonExistentMiddleware = async (
         message: ErrorMessagesEnum.USER_NON_EXISTENT,
       });
     }
+    req.body.user = user;
     next();
   } catch (error) {
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({

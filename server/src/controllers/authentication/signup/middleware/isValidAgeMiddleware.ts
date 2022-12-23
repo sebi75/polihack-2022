@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { ErrorTypesEnum, StatusCodesEnum } from '../../../../../static';
+import { ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
 import { SignupControllerRequest } from '../types';
 import { isValidAge } from '../utils';
 

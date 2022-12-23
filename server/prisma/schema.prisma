@@ -13,19 +13,19 @@ datasource db {
 model User {
   userId         String    @id @default(cuid())
   role           String
-  firstName      String?
-  lastName       String?
-  isVerified     Boolean?
-  isEmployer     Boolean?
+  firstName      String
+  lastName       String
+  isVerified     Boolean
   email          String    @unique
-  profilePicture String?
+  profilePicture String
   hashedPassword String
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @default(now()) @updatedAt
-  birthday       DateTime?
-  location       String?
-  about          String?
+  birthday       DateTime
+  location       String
+  about          String
 
+  Employer Employer?
   ListingApplications ListingApplications[]
 }
 
@@ -59,15 +59,20 @@ model ListingApplications {
 
 model Employer {
   employerId     String    @id @default(cuid())
+  userId String @unique
   name           String
   about          String
   email          String
   rating         Float
   location       String
+  state String
+  city String
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @default(now()) @updatedAt
   isVerified     Boolean
   profilePicture String
   activityDomain String
   listings       Listing[]
+
+  user User @relation(fields: [userId], references: [userId])
 }

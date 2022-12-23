@@ -24,6 +24,9 @@ export enum ErrorTypesEnum {
   LISTING_INVALID_EMPLOYER_ID = 'LISTING_INVALID_EMPLOYER_ID',
   LISTING_INVALID_LOCATION = 'LISTING_INVALID_LOCATION',
   LISTING_INVALID_PHOTO_URL = 'LISTING_INVALID_PHOTO_URL',
+
+  //GENERAL
+  NOT_FOUND = 'NOT_FOUND',
 }
 
 export enum ErrorMessagesEnum {
@@ -52,4 +55,7 @@ export enum ErrorMessagesEnum {
   LISTING_INVALID_EMPLOYER_ID = 'Invalid employer id',
   LISTING_INVALID_LOCATION = 'Invalid location',
   LISTING_INVALID_PHOTO_URL = 'Invalid photo url',
+
+  //GENERAL
+  NOT_FOUND = 'Not found',
 }

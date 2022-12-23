@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
 import { SignupControllerRequest } from '../types';
 
-import { prisma } from '../../../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../../static';
+import { prisma } from '../../../../lib';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
 
 export const isUserExistentMiddleware = async (
   req: SignupControllerRequest,

@@ -1,2 +1,2 @@
-export { default as exampleRouter } from './exampleRoute'
-export { listingsRouter } from './listingRoutes'
+export { listingsRouter } from './listingRoutes';
+export { authenticationRouter } from './authentication';
