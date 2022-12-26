@@ -1,3 +1,3 @@
 export { logger } from './logger/logger';
-export { encryptPassword } from './encryption';
+export { encryptPassword, decodeJwt } from './encryption';
 export { genericValidationMiddleware } from './validation';

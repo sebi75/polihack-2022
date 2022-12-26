@@ -5,3 +5,5 @@ export {
   isValidAgeMiddleware,
   zodSignupValidator,
 } from './signup';
+
+export { isAuthenticatedMiddleware } from './middleware';

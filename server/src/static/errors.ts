@@ -25,8 +25,14 @@ export enum ErrorTypesEnum {
   LISTING_INVALID_LOCATION = 'LISTING_INVALID_LOCATION',
   LISTING_INVALID_PHOTO_URL = 'LISTING_INVALID_PHOTO_URL',
 
+  LISTING_ID_NOT_PROVIDED = 'LISTING_ID_NOT_PROVIDED',
+
+  //Applications
+  ALREADY_APPLIED = 'ALREADY_APPLIED',
+
   //GENERAL
   NOT_FOUND = 'NOT_FOUND',
+  UNAUTHORIZED = 'UNAUTHORIZED',
 }
 
 export enum ErrorMessagesEnum {
@@ -58,4 +64,8 @@ export enum ErrorMessagesEnum {
 
   //GENERAL
   NOT_FOUND = 'Not found',
+  UNAUTHORIZED = 'Unauthorized',
+
+  //USER
+  UPDATE_USER_NO_FIELDS = 'No fields to update',
 }

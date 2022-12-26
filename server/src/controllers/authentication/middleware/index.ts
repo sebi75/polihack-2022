@@ -1,0 +1,1 @@
+export { isAuthenticatedMiddleware } from './isAuthenticatedMiddleware';

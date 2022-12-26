@@ -1,0 +1,1 @@
+export { isValidApplicationMiddleware } from './isValidApplicationMiddleware';

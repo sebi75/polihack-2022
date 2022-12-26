@@ -1,0 +1,1 @@
+export { getUserApplicationsController } from './getUserApplicationsController';

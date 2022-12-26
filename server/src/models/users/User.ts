@@ -1,13 +1,14 @@
 export type UserResultType = {
   email: string;
-  about: string;
+  about: string; //editable
   userId: string;
   birthday: string;
-  fullName: string;
+  firstName: string; //editable
+  lastName: string; // editable
   createdAt: number;
   updatedAt: number;
   isVerified: boolean;
-  profilePicture: string;
+  profilePicture: string; // editable
 };
 
 type ExcludedKeysUnion =
@@ -16,6 +17,16 @@ type ExcludedKeysUnion =
   | 'updatedAt'
   | 'isVerified'
   | 'profilePicture'
-  | 'fullName'
+  | 'firstName'
+  | 'lastName'
   | 'about';
 export type UserCreate = Omit<UserResultType, ExcludedKeysUnion> & { password: string };
+
+export type UserUpdate = Partial<
+  Omit<UserResultType, ExcludedKeysUnion | 'birthday' | 'email'> & {
+    profilePicture?: string;
+    firstName?: string;
+    lastName?: string;
+    about?: string;
+  }
+>;

@@ -1,0 +1,1 @@
+export { getUserByUserIdController } from './getUserByUserIdController';

@@ -1,1 +1,1 @@
-export type { CreateListingType, ListingResultType } from './Listing'
+export type { ListingCreateType, ListingUpdateType, ListingResultType } from './Listing';
