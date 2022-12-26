@@ -1,9 +1,13 @@
 import { Response } from 'express';
 import { CancelUserApplicationRequest } from '../types';
 
-import { ListingApplicationTypeStatusEnum } from '../../../types';
+import {
+  ListingApplicationTypeStatusEnum,
+  ErrorMessagesEnum,
+  ErrorTypesEnum,
+  StatusCodesEnum,
+} from '../../../types';
 import { prisma } from '../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
 
 export const userCancelApplicationController = async (
   req: CancelUserApplicationRequest,

@@ -1,9 +1,8 @@
 import { Response, NextFunction } from 'express';
 import { prisma } from '../../../lib';
-import { ErrorTypesEnum, StatusCodesEnum } from '../../../static';
 import { CancelUserApplicationRequest } from '../types';
 
-import { RoleTypesEnum } from '../../../types';
+import { RoleTypesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 import { logger } from '../../../utils';
 
 //this middleware checks if the application exists and if

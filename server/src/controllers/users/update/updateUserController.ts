@@ -2,7 +2,7 @@ import { Response } from 'express';
 
 import { UpdateUserRequest } from './types';
 import { prisma } from '../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 export const updateUserController = async (req: UpdateUserRequest, res: Response) => {
   //destructuring with the fields that body CAN have, but not all of them are required

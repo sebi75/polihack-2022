@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { prisma } from '../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 import { GetEmployerListingsRequest } from '../types';
 

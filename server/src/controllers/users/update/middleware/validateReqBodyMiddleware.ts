@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
 import { UpdateUserRequest } from '../types';
 
 export enum UpdateUserPropertyKeysEnum {

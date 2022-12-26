@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { prisma } from '../../../lib';
-import { ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 export const getListingByListingIdController = async (req: Request, res: Response) => {
   const { listingId } = req.params;

@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { prisma } from '../../../lib';
-import { StatusCodesEnum, ErrorTypesEnum, ErrorMessagesEnum } from '../../../static';
+import { StatusCodesEnum, ErrorTypesEnum, ErrorMessagesEnum } from '../../../types';
 import { GetUserApplicationsRequest } from '../types';
 
 export const getUserApplicationsController = async (
