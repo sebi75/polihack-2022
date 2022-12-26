@@ -1,8 +1,8 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
-import { JwtPayload, RequestAfterAuthentication } from '../../../types'; // the info we store in the token
+import { RequestAfterAuthentication } from '../../../types'; // the info we store in the token
 import { decodeJwt } from '../../../utils';
 
 export const isAuthenticatedMiddleware = (

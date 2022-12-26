@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { encryptPassword, logger } from '../../../utils';
 import { prisma } from '../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 export const signupController = async (req: SignupControllerRequest, res: Response) => {
   const { birthday, email, password } = req.body;

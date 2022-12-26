@@ -19,3 +19,15 @@ export interface ApplyToListingRequest extends RequestAfterAuthentication {
 }
 
 export type GetUserApplicationsRequest = RequestAfterAuthentication;
+
+export interface CancelUserApplicationRequest extends RequestAfterAuthentication {
+  params: {
+    listingId: string;
+  };
+}
+
+export interface GetEmployerListingsRequest extends RequestAfterAuthentication {
+  params: {
+    employerId: string;
+  };
+}

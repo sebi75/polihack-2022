@@ -50,7 +50,6 @@ model ListingApplications {
   listingId String
   userId    String
   status    String
-  canceled Boolean
   createdAt DateTime @default(now())
   Listing   Listing  @relation(fields: [listingId], references: [listingId])
   User      User     @relation(fields: [userId], references: [userId])

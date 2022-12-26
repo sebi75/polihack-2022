@@ -3,7 +3,7 @@ import { SigninControllerRequest } from './types';
 
 import { encryptPassword, logger } from '../../../utils';
 import jwt from 'jsonwebtoken';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 export const singinController = async (req: SigninControllerRequest, res: Response) => {
   const { email, password } = req.body;

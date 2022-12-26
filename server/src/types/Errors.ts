@@ -33,6 +33,7 @@ export enum ErrorTypesEnum {
   //GENERAL
   NOT_FOUND = 'NOT_FOUND',
   UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
 }
 
 export enum ErrorMessagesEnum {
@@ -61,6 +62,9 @@ export enum ErrorMessagesEnum {
   LISTING_INVALID_EMPLOYER_ID = 'Invalid employer id',
   LISTING_INVALID_LOCATION = 'Invalid location',
   LISTING_INVALID_PHOTO_URL = 'Invalid photo url',
+
+  //Employer
+  EMPLOYER_NOT_FOUND = 'Employer not found',
 
   //GENERAL
   NOT_FOUND = 'Not found',

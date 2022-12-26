@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
 import { RoleTypesEnum } from '../../../../types';
 import { CreateListingRequest } from '../../types';
 

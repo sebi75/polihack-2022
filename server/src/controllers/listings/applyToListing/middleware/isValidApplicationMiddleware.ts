@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../../../../lib';
-import { ErrorTypesEnum, StatusCodesEnum } from '../../../../static';
+import { ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
 
 import { RequestAfterAuthentication } from '../../../../types';
 

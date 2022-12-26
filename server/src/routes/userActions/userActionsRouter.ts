@@ -1,5 +1,5 @@
 import express from 'express';
-import { EndpointsEnum } from '../../static/endpoints';
+import { EndpointsEnum } from '../../types/endpoints';
 
 import { isAuthenticatedMiddleware } from '../../controllers/authentication/';
 

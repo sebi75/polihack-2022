@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { CreateListingRequest } from '../types';
 import { prisma } from '../../../lib';
 
-import { StatusCodesEnum, ErrorTypesEnum, ErrorMessagesEnum } from '../../../static/';
+import { StatusCodesEnum, ErrorTypesEnum, ErrorMessagesEnum } from '../../../types';
 
 export const createListingController = async (req: CreateListingRequest, res: Response) => {
   //destructuring with what we should have in body when we get into this controller

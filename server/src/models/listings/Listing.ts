@@ -29,6 +29,5 @@ export type ListingApplicationType = {
   listingId: string;
   userId: string;
   createdAt: number;
-  canceled: boolean;
   status: ListingApplicationTypeStatusEnum;
 };

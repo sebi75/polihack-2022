@@ -8,7 +8,7 @@ import {
 } from '../../controllers/authentication';
 
 import { zodSigninValidator, isUserNonExistentMiddleware } from '../../controllers/authentication';
-import { EndpointsEnum } from '../../static/endpoints';
+import { EndpointsEnum } from '../../types/endpoints';
 
 import { genericValidationMiddleware } from '../../utils/validation';
 

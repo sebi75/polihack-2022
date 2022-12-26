@@ -3,7 +3,7 @@ import { ListingApplicationTypeStatusEnum } from '../../../types';
 
 import { ApplyToListingRequest } from '../types';
 import { prisma } from '../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../static';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 const DEFAULT_STATUS = ListingApplicationTypeStatusEnum.PENDING;
 

@@ -17,8 +17,8 @@ import { authenticationRouter, listingsRouter, userActionsRouter } from './route
 // import { s3Instance } from './lib';
 // import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import multer from 'multer';
-import { LISTINGS, AUTHENTICATION, USER_ACTIONS } from './static/endpoints';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './static';
+import { LISTINGS, AUTHENTICATION, USER_ACTIONS } from './types/endpoints';
+import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
 const storage = multer.memoryStorage();
 // const upload = multer({ storage });

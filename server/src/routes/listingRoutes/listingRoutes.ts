@@ -7,14 +7,26 @@ import {
   isValidApplicationMiddleware,
   zodCreateListingValidator,
   applyToListingController,
+  isListingApplicationOwnerMiddleware,
+  userCancelApplicationController,
+  existsEmployerByIdMiddleware,
+  getEmployerListingsController,
 } from '../../controllers/listings';
 import { genericValidationMiddleware } from '../../utils/validation';
-import { EndpointsEnum } from '../../static/endpoints';
+import { EndpointsEnum } from '../../types/endpoints';
 import { isAuthenticatedMiddleware } from '../../controllers/authentication';
 
 const listingsRouter = express.Router();
 
 //applications
+
+//user cancel application
+listingsRouter.post(
+  '/cancel/:listingId', //@ts-ignore
+  isAuthenticatedMiddleware,
+  isListingApplicationOwnerMiddleware,
+  userCancelApplicationController,
+);
 
 //apply to listing
 listingsRouter.post(
@@ -23,15 +35,25 @@ listingsRouter.post(
   isValidApplicationMiddleware,
   applyToListingController,
 );
-//@ts-ignore get user applications
-listingsRouter.get('/applications', isAuthenticatedMiddleware, getUserApplicationsController);
+
+//get user applications
+//@ts-ignore
+listingsRouter.get('/user/applications', isAuthenticatedMiddleware, getUserApplicationsController);
+
+//get employer listings
+listingsRouter.get(
+  '/employer/applications/:employerId', //@ts-ignore
+  isAuthenticatedMiddleware,
+  existsEmployerByIdMiddleware,
+  getEmployerListingsController,
+);
 
 //@ts-ignore
 listingsRouter.get('/:listingId', isAuthenticatedMiddleware, getListingByListingIdController);
 
 //create listing
 listingsRouter.post(
-  EndpointsEnum.CREATE, //@ts-ignore
+  `/${EndpointsEnum.CREATE}`, //@ts-ignore
   isAuthenticatedMiddleware,
   genericValidationMiddleware(zodCreateListingValidator),
   isAllowedToCreateListingMiddleware,
