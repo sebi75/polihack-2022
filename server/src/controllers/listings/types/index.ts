@@ -5,5 +5,6 @@ export {
   GetListingByListingIdRequest,
   GetUserApplicationsRequest,
   CancelUserApplicationRequest,
+  AcceptUserApplicationRequest,
   GetEmployerListingsRequest,
 } from './ListingRequestsTypes';

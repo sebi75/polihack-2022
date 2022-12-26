@@ -31,3 +31,9 @@ export interface GetEmployerListingsRequest extends RequestAfterAuthentication {
     employerId: string;
   };
 }
+
+export interface AcceptUserApplicationRequest extends RequestAfterAuthentication {
+  params: {
+    listingId: string;
+  };
+}

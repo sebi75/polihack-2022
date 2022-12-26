@@ -1,0 +1,1 @@
+export { isAbleToAcceptMiddleware } from './isAbleToAcceptMiddleware';

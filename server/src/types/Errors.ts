@@ -34,6 +34,7 @@ export enum ErrorTypesEnum {
   NOT_FOUND = 'NOT_FOUND',
   UNAUTHORIZED = 'UNAUTHORIZED',
   FORBIDDEN = 'FORBIDDEN',
+  BAD_REQUEST = 'BAD_REQUEST',
 }
 
 export enum ErrorMessagesEnum {
