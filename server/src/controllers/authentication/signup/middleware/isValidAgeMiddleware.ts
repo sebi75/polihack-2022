@@ -1,10 +1,10 @@
 import { Response, NextFunction } from 'express';
 import { ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
-import { SignupControllerRequest } from '../types';
+import { SignupUserControllerRequest } from '../types';
 import { isValidAge } from '../utils';
 
 export const isValidAgeMiddleware = (
-  req: SignupControllerRequest,
+  req: SignupUserControllerRequest,
   res: Response,
   next: NextFunction,
 ) => {
