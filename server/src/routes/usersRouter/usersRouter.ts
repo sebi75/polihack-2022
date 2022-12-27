@@ -1,7 +1,7 @@
 import express from 'express';
 import { EndpointsEnum } from '../../types/endpoints';
 
-import { isAuthenticatedMiddleware } from '../../controllers/authentication/';
+import { isAuthenticatedMiddleware } from '../../controllers/authentication';
 
 import {
   updateUserController,
@@ -9,14 +9,14 @@ import {
   getUserByUserIdController,
   validateUpdateUserBodyMiddleware,
 } from '../../controllers/users';
-import { genericValidationMiddleware } from '../../utils/';
+import { genericValidationMiddleware } from '../../utils';
 
-export const userActionsRouter = express.Router();
+export const usersRouter = express.Router();
 
 //@ts-ignore
-userActionsRouter.get('/:userId', isAuthenticatedMiddleware, getUserByUserIdController);
+usersRouter.get('/:userId', isAuthenticatedMiddleware, getUserByUserIdController);
 
-userActionsRouter.post(
+usersRouter.post(
   `/${EndpointsEnum.UPDATE}`, //@ts-ignore
   isAuthenticatedMiddleware,
   genericValidationMiddleware(zodUserUpdateValidator),

@@ -4,6 +4,6 @@ export {
   zodUserUpdateValidator,
   UpdateUserPropertyKeysEnum,
   validateUpdateUserBodyMiddleware,
-} from './update';
+} from './updateProfile';
 
 export { getUserByUserIdController } from './get';

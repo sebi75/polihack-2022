@@ -13,18 +13,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* ROUTES COME HERE */
-import { authenticationRouter, listingsRouter, userActionsRouter } from './routes';
+import { authenticationRouter, listingsRouter, usersRouter, employersRouter } from './routes';
 // import { s3Instance } from './lib';
 // import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import multer from 'multer';
-import { LISTINGS, AUTHENTICATION, USER_ACTIONS } from './types/endpoints';
+import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
 const storage = multer.memoryStorage();
 // const upload = multer({ storage });
 
+app.use(USERS, usersRouter);
 app.use(LISTINGS, listingsRouter);
-app.use(USER_ACTIONS, userActionsRouter);
+app.use(EMPLOYERS, employersRouter);
 app.use(AUTHENTICATION, authenticationRouter);
 
 // app.post('/upload', upload.single('file'), (req, res) => {
