@@ -24,7 +24,7 @@ export type UserCreate = Omit<UserResultType, ExcludedKeysUnion> & { password: s
 
 export type UserUpdate = Partial<
   Omit<UserResultType, ExcludedKeysUnion | 'birthday' | 'email'> & {
-    profilePicture?: string;
+    profilePicture?: Buffer;
     firstName?: string;
     lastName?: string;
     about?: string;
