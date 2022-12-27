@@ -1,10 +1,13 @@
 import express from 'express';
-import { singinController, signupController } from '../../controllers/authentication';
+import { singinController } from '../../controllers/authentication';
 
 import {
-  zodSignupValidator,
+  zodSignupUserValidator,
+  zodSignupEmployerValidator,
   isValidAgeMiddleware,
   isUserExistentMiddleware,
+  signupUserController,
+  signupEmployerController,
 } from '../../controllers/authentication';
 
 import { zodSigninValidator, isUserNonExistentMiddleware } from '../../controllers/authentication';
@@ -15,11 +18,17 @@ import { genericValidationMiddleware } from '../../utils/validation';
 export const authenticationRouter = express.Router();
 
 authenticationRouter.post(
-  `/${EndpointsEnum.SIGNUP}`,
-  genericValidationMiddleware(zodSignupValidator),
+  `/user/${EndpointsEnum.SIGNUP}`,
+  genericValidationMiddleware(zodSignupUserValidator),
   isUserExistentMiddleware,
   isValidAgeMiddleware,
-  signupController,
+  signupUserController,
+);
+authenticationRouter.post(
+  `/employer/${EndpointsEnum.SIGNUP}`,
+  genericValidationMiddleware(zodSignupEmployerValidator),
+  isUserExistentMiddleware,
+  signupEmployerController,
 );
 
 authenticationRouter.post(

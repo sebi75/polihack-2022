@@ -17,7 +17,6 @@ export const updateUserController = async (req: UpdateUserRequest, res: Response
     const user = await prisma.user.update({
       data: {
         ...req.body,
-        profilePicture: 'https://www.google.com',
       },
       where: {
         userId,

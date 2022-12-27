@@ -1,9 +1,11 @@
 export { singinController, isUserNonExistentMiddleware, zodSigninValidator } from './signin';
 export {
-  signupController,
+  signupEmployerController,
+  signupUserController,
   isUserExistentMiddleware,
   isValidAgeMiddleware,
-  zodSignupValidator,
+  zodSignupEmployerValidator,
+  zodSignupUserValidator,
 } from './signup';
 
 export { isAuthenticatedMiddleware } from './middleware';

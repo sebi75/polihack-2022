@@ -1,16 +1,38 @@
 export type EmployerResultType = {
-  employerId: string;
   userId: string;
-  name: string;
-  about: string;
   email: string;
-  rating: number;
-  location: string;
-  state: string;
-  city: string;
+  hashedPassword: string;
+  role: string;
+  isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
-  isVerified: boolean;
-  profilePicture: string;
+
+  employerProfile: {
+    name: string;
+    about: string;
+    rating: number;
+    location: string;
+    state: string;
+    city: string;
+    profilePicture: string;
+    activityDomain: string;
+  };
+};
+
+type ExcludedKeysUnion =
+  | 'userId'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'hashedPassword'
+  | 'isVerified'
+  | 'about'
+  | 'employerProfile'
+  | 'role';
+
+export type EmployerCreate = Omit<EmployerResultType, ExcludedKeysUnion> & {
+  city: string;
+  name: string;
+  state: string;
+  password: string;
   activityDomain: string;
 };

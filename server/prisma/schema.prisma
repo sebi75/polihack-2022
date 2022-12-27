@@ -33,7 +33,7 @@ model UserProfile {
   firstName      String
   lastName       String
   profilePicture String
-  rating         Float
+  rating         Float?
   birthday       String
   location       String
   about          String
@@ -50,7 +50,7 @@ model EmployerProfile {
 
   name           String
   about          String
-  rating         Float
+  rating         Float?
   location       String
   state          String
   city           String
