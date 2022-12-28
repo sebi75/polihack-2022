@@ -72,8 +72,8 @@ model Listing {
   hoursPerDay       Int
   photoURL          String
   employerId        String
-  startDate         Int
-  endDate           Int
+  startDate         String
+  endDate           String
 
   ListingApplications ListingApplications[]
   Employer            EmployerProfile       @relation(fields: [employerId], references: [employerId])

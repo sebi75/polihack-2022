@@ -25,7 +25,6 @@ type ExcludedKeysUnion =
   | 'updatedAt'
   | 'hashedPassword'
   | 'isVerified'
-  | 'about'
   | 'employerProfile'
   | 'role';
 

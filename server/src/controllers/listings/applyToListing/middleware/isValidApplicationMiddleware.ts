@@ -41,7 +41,7 @@ export const isValidApplicationMiddleware = async (
       },
     });
     if (!application) {
-      return next();
+      next();
     }
 
     return res.status(StatusCodesEnum.BAD_REQUEST).json({

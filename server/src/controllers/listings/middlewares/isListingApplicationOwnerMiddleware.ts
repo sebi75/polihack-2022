@@ -40,7 +40,7 @@ export const isListingApplicationOwnerMiddleware = async (
       });
     }
 
-    return next();
+    next();
   } catch (error) {
     logger.error(`Error in isListingApplicationOwnerMiddleware: ${error}`);
 

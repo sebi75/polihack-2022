@@ -25,7 +25,7 @@ export const isAuthenticatedMiddleware = (
     jwt.verify(token, process.env.JWT_SECRET as string);
     // if the token is valid, we decode it when we need information from it
     req.tokenData = decodeJwt(token);
-    return next();
+    next();
   } catch (error) {
     return res.status(StatusCodesEnum.UNAUTHORIZED).json({
       error: ErrorTypesEnum.UNAUTHORIZED,

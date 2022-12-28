@@ -17,5 +17,5 @@ export const isAllowedToCreateListingMiddleware = async (
     });
   }
 
-  return next();
+  next();
 };

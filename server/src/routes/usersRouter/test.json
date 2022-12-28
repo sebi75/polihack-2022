@@ -22,6 +22,8 @@
 }
 
 //test create listing
+user auth token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNlYmlzZW1lbml1Y0BnbWFpbC5jb20iLCJ1c2VySWQiOiJjbGM3cjM2OXMwMDAwODByY3B2bTBiaWtjIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NzIyMzc1OTUsImV4cCI6MTY3MjMyMzk5NX0.wDqkRR9XQgeLI8_oYmZMA-RT_Q8dDymeZfJ56pHIBtg
 {
     "title": "Ajutor de bucatar",
     "description": "Avem nevoie de un ajutor de bucatar la bucataria euphoria din plopilor pentru cateva zile. Durata pe zi este de 4 ore.",

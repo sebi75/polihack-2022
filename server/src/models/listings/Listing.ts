@@ -2,10 +2,10 @@ import { ListingApplicationTypeStatusEnum } from '../../types';
 
 export type ListingResultType = {
   title: string; //editable
-  endDate: number; //editable
+  endDate: string; //editable format: MM-DD-YYYY
+  startDate: string; //editable format: MM-DD-YYYY
   location: string;
   photoURL: string; //editable
-  startDate: number; //editable
   jobOfferId: string;
   employerId: string;
   hoursPerDay: number; //editable
