@@ -1,0 +1,1 @@
+export { validateImageUploadMiddleware } from './validateImageUploadMiddleware';

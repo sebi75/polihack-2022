@@ -11,7 +11,7 @@ export const existsEmployerByIdMiddleware = async (
   const { employerId } = req.params;
 
   try {
-    const employer = await prisma.employer.findUnique({
+    const employer = await prisma.employerProfile.findUnique({
       where: {
         employerId: employerId,
       },

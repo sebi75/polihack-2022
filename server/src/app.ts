@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 
 import { logger } from './utils';
@@ -15,13 +15,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* ROUTES COME HERE */
 import { authenticationRouter, listingsRouter, usersRouter, employersRouter } from './routes';
 // import { s3Instance } from './lib';
-// import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import multer from 'multer';
 import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
+import { s3Instance } from './lib';
+
+import { validateImageUploadMiddleware } from './middlewares';
 
 const storage = multer.memoryStorage();
-// const upload = multer({ storage });
+const upload = multer({ storage });
+app.post(
+  '/test-upload',
+  upload.single('profilePicture'),
+  validateImageUploadMiddleware,
+  async (req: Request, res: Response) => {
+    console.log(req.file);
+    const command = new PutObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: `test-directory/${req.file?.originalname}`,
+      Body: req.file?.buffer,
+      ContentType: req.file?.mimetype,
+    });
+    try {
+      const response = await s3Instance.send(command);
+      console.log(response);
+    } catch (error) {
+      console.log('Something went wrong');
+    }
+    return res.status(200).json({ message: 'Success' });
+  },
+);
 
 app.use(USERS, usersRouter);
 app.use(LISTINGS, listingsRouter);

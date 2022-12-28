@@ -5,4 +5,6 @@ import { RequestAfterAuthentication } from '../../../../types';
 // middleware where we attach the token data to the request
 export interface UpdateUserRequest extends RequestAfterAuthentication {
   body: UserUpdate;
+  // fileURL?: string;
+  //users upload files and we have them on req.file
 }

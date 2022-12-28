@@ -35,6 +35,9 @@ export enum ErrorTypesEnum {
   UNAUTHORIZED = 'UNAUTHORIZED',
   FORBIDDEN = 'FORBIDDEN',
   BAD_REQUEST = 'BAD_REQUEST',
+
+  //FILE
+  FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR',
 }
 
 export enum ErrorMessagesEnum {
@@ -73,4 +76,11 @@ export enum ErrorMessagesEnum {
 
   //USER
   UPDATE_USER_NO_FIELDS = 'No fields to update',
+
+  //FILES
+  INVALID_FILE_TYPE = 'Invalid file type',
+  FILE_SIZE_TOO_LARGE = 'File size too large',
+  FILE_NOT_FOUND = 'File not found',
+  FILE_EMPTY = 'File empty',
+  FILE_UPLOAD_ERROR = 'File upload error',
 }
