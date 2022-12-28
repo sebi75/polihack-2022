@@ -1,7 +1,7 @@
 import { AnyZodObject } from 'zod';
 import { Request, Response, NextFunction } from 'express';
 
-import { ErrorTypesEnum, StatusCodesEnum } from '../../types';
+import { ErrorTypesEnum, StatusCodesEnum } from '../types';
 
 export const genericValidationMiddleware =
   (zodSchema: AnyZodObject) => async (req: Request, res: Response, next: NextFunction) => {

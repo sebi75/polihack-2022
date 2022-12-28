@@ -1,1 +1,0 @@
-export { genericValidationMiddleware } from './genericValidationMiddleware'

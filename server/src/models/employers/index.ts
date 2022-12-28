@@ -1,1 +1,1 @@
-export type { EmployerResultType, EmployerCreate } from './Employer';
+export type { EmployerResultType, EmployerCreate, EmployerUpdate } from './Employer';

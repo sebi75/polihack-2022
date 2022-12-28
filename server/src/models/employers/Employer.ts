@@ -9,12 +9,12 @@ export type EmployerResultType = {
 
   employerProfile: {
     name: string;
-    about: string;
+    about: string; // editable
     rating: number;
     location: string;
     state: string;
     city: string;
-    profilePicture: string;
+    profilePicture: string; // editable
     activityDomain: string;
   };
 };
@@ -36,3 +36,10 @@ export type EmployerCreate = Omit<EmployerResultType, ExcludedKeysUnion> & {
   password: string;
   activityDomain: string;
 };
+
+export type EmployerUpdate = Partial<
+  Omit<EmployerResultType, ExcludedKeysUnion | 'email'> & {
+    profilePicture?: string;
+    about?: string;
+  }
+>;

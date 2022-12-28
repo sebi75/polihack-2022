@@ -1,13 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
 import { uploadToS3 } from '../../../../utils';
 import { UpdateUserRequest } from '../types';
 
-import { prisma } from '../../../../lib';
+import { UpdateEmployerRequest } from '../../../employers/updateProfile/types';
 
 export const handleFileUploadMiddleware = async (
-  req: UpdateUserRequest,
+  req: UpdateUserRequest | UpdateEmployerRequest,
   res: Response,
   next: NextFunction,
 ) => {
