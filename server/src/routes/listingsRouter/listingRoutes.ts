@@ -14,7 +14,7 @@ import {
   acceptUserApplicationController,
   isAbleToAcceptMiddleware,
 } from '../../controllers/listings';
-import { genericValidationMiddleware } from '../../utils/validation';
+import { genericValidationMiddleware } from '../../middlewares';
 import { EndpointsEnum } from '../../types/endpoints';
 import { isAuthenticatedMiddleware } from '../../controllers/authentication';
 
@@ -60,7 +60,7 @@ listingsRouter.get('/:listingId', isAuthenticatedMiddleware, getListingByListing
  * EMPLOYER ENDPOINTS
  */
 
-//create listing
+//create listing //todo now support image upload for listing
 listingsRouter.post(
   `/${EndpointsEnum.CREATE}`, //@ts-ignore
   isAuthenticatedMiddleware,

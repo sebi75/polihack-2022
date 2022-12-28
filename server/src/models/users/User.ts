@@ -27,7 +27,10 @@ type ExcludedKeysUnion =
   | 'role'
   | 'lastName'
   | 'about';
-export type UserCreate = Omit<UserResultType, ExcludedKeysUnion> & { password: string };
+export type UserCreate = Omit<UserResultType, ExcludedKeysUnion> & {
+  password: string;
+  birthday: string;
+};
 
 export type UserUpdate = Partial<
   Omit<UserResultType, ExcludedKeysUnion | 'birthday' | 'email' | 'userProfile'> & {

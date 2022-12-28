@@ -44,5 +44,5 @@ export const validateImageUploadMiddleware = (req: Request, res: Response, next:
     });
   }
 
-  next();
+  return next();
 };

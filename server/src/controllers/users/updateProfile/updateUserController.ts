@@ -18,12 +18,36 @@ export const updateUserController = async (req: UpdateUserRequest, res: Response
       where: {
         userId,
       },
+      include: {
+        User: {
+          select: {
+            createdAt: true,
+            updatedAt: true,
+            userId: true,
+            email: true,
+            isVerified: true,
+            role: true,
+          },
+        },
+      },
     });
 
     //send the latest user data back to the client
     return res.status(StatusCodesEnum.OK).json({
       data: {
-        user,
+        user: {
+          ...user.User,
+          userProfile: {
+            about: user.about,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profilePicture: user.profilePicture,
+            rating: user.rating,
+            userId: user.userId,
+            location: user.location,
+            birthday: user.birthday,
+          },
+        },
       },
     });
   } catch (error) {

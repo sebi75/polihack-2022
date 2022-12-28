@@ -22,7 +22,7 @@ export const handleFileUploadMiddleware = async (
   try {
     const fileURL = await uploadToS3(file, filePathKey);
     req.body.profilePicture = fileURL;
-    next();
+    return next();
   } catch (error) {
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({
       error: ErrorTypesEnum.FILE_UPLOAD_ERROR,

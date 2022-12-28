@@ -16,7 +16,6 @@ export const isValidAgeMiddleware = (
       status: StatusCodesEnum.BAD_REQUEST,
       error: ErrorTypesEnum.VALIDATION_ERROR,
     });
-  } else {
-    next();
   }
+  return next();
 };

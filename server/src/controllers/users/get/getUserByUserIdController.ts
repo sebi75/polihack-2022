@@ -6,18 +6,29 @@ import { logger } from '../../../utils';
 
 export const getUserByUserIdController = async (req: RequestAfterAuthentication, res: Response) => {
   const { userId } = req.params;
+  const employerId = req.tokenData.employerId;
 
   try {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         userId,
+      },
+      select: {
+        UserProfile: !employerId, // if employerId is falsy, select userProfile
+        EmployerProfile: !!employerId, // if employerId is truthy, select employerProfile
+        createdAt: true,
+        updatedAt: true,
+        userId: true,
+        email: true,
+        isVerified: true,
+        role: true,
       },
     });
 
     if (!user) {
       return res.status(StatusCodesEnum.NOT_FOUND).json({
         error: ErrorTypesEnum.NOT_FOUND,
-        message: ErrorMessagesEnum.NOT_FOUND,
+        message: ErrorMessagesEnum.USER_NOT_FOUND,
       });
     }
 

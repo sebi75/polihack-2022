@@ -16,7 +16,7 @@ import {
 
 import { EndpointsEnum } from '../../types/endpoints';
 
-import { genericValidationMiddleware } from '../../utils/validation';
+import { genericValidationMiddleware } from '../../middlewares';
 
 export const authenticationRouter = express.Router();
 

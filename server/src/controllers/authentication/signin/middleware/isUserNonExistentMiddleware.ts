@@ -25,7 +25,7 @@ export const isUserNonExistentMiddleware = async (
       });
     }
     req.body.user = user;
-    next();
+    return next();
   } catch (error) {
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({
       error: ErrorTypesEnum.SERVER_INTERNAL_ERROR,

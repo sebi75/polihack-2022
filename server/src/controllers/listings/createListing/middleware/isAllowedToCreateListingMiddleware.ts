@@ -12,10 +12,10 @@ export const isAllowedToCreateListingMiddleware = async (
 
   if (!employerId || (role !== RoleTypesEnum.EMPLOYER && role !== RoleTypesEnum.ADMIN)) {
     return res.status(StatusCodesEnum.UNAUTHORIZED).json({
-      error: ErrorTypesEnum.UNAUTHORIZED,
-      message: ErrorMessagesEnum.UNAUTHORIZED,
+      error: ErrorTypesEnum.NOT_ALLOWED_TO_CREATE_LISTING,
+      message: ErrorMessagesEnum.NOT_ALLOWED_TO_CREATE_LISTING,
     });
   }
 
-  next();
+  return next();
 };

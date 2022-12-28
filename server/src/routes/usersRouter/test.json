@@ -1,0 +1,33 @@
+{
+  "data": {
+    "user": {
+      "UserProfile": {
+        "userId": "clc7r369s000080rcpvm0bikc",
+        "firstName": "",
+        "lastName": "",
+        "profilePicture": "",
+        "rating": null,
+        "birthday": "03-19-2003",
+        "location": "",
+        "about": ""
+      },
+      "createdAt": "2022-12-28T14:26:35.008Z",
+      "updatedAt": "2022-12-28T14:26:35.008Z",
+      "userId": "clc7r369s000080rcpvm0bikc",
+      "email": "sebisemeniuc@gmail.com",
+      "isVerified": false,
+      "role": "USER"
+    }
+  }
+}
+
+//test create listing
+{
+    "title": "Ajutor de bucatar",
+    "description": "Avem nevoie de un ajutor de bucatar la bucataria euphoria din plopilor pentru cateva zile. Durata pe zi este de 4 ore.",
+    "jobDurationInDays": 2,
+    "hoursPerDay": 4,
+    "photoURL": "",
+    "startDate": 1212121212,
+    "endDate": 12121212121
+}

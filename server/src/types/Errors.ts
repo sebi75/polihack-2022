@@ -24,6 +24,7 @@ export enum ErrorTypesEnum {
   LISTING_INVALID_EMPLOYER_ID = 'LISTING_INVALID_EMPLOYER_ID',
   LISTING_INVALID_LOCATION = 'LISTING_INVALID_LOCATION',
   LISTING_INVALID_PHOTO_URL = 'LISTING_INVALID_PHOTO_URL',
+  NOT_ALLOWED_TO_CREATE_LISTING = 'NOT_ALLOWED_TO_CREATE_LISTING',
 
   LISTING_ID_NOT_PROVIDED = 'LISTING_ID_NOT_PROVIDED',
 
@@ -66,6 +67,7 @@ export enum ErrorMessagesEnum {
   LISTING_INVALID_EMPLOYER_ID = 'Invalid employer id',
   LISTING_INVALID_LOCATION = 'Invalid location',
   LISTING_INVALID_PHOTO_URL = 'Invalid photo url',
+  NOT_ALLOWED_TO_CREATE_LISTING = 'Not allowed to create listing',
 
   //Employer
   EMPLOYER_NOT_FOUND = 'Employer not found',
@@ -76,6 +78,7 @@ export enum ErrorMessagesEnum {
 
   //USER
   UPDATE_USER_NO_FIELDS = 'No fields to update',
+  USER_NOT_FOUND = 'User not found',
 
   //FILES
   INVALID_FILE_TYPE = 'Invalid file type',
