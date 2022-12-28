@@ -14,8 +14,7 @@ export const acceptUserApplicationController = async (
   req: AcceptUserApplicationRequest,
   res: Response,
 ) => {
-  const { listingId } = req.params;
-  const { userId } = req.tokenData;
+  const { listingId, userId } = req.params;
 
   try {
     const application = await prisma.listingApplications.update({

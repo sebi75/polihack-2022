@@ -8,7 +8,7 @@ import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../typ
 const DEFAULT_STATUS = ListingApplicationTypeStatusEnum.PENDING;
 
 export const applyToListingController = async (req: ApplyToListingRequest, res: Response) => {
-  const { listingId } = req.params;
+  const { listingId, listingOwnerId } = req.params;
   const { userId } = req.tokenData;
 
   try {
@@ -17,6 +17,7 @@ export const applyToListingController = async (req: ApplyToListingRequest, res: 
     const application = await prisma.listingApplications.create({
       data: {
         listingId: listingId,
+        listingOwnerId: listingOwnerId,
         userId: userId,
         status: DEFAULT_STATUS,
       },

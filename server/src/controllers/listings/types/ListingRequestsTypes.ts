@@ -15,6 +15,7 @@ export type GetListingByListingIdRequest = RequestAfterAuthentication;
 export interface ApplyToListingRequest extends RequestAfterAuthentication {
   params: {
     listingId: string;
+    listingOwnerId: string;
   };
 }
 
@@ -35,5 +36,6 @@ export interface GetEmployerListingsRequest extends RequestAfterAuthentication {
 export interface AcceptUserApplicationRequest extends RequestAfterAuthentication {
   params: {
     listingId: string;
+    userId: string;
   };
 }

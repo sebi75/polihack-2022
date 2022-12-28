@@ -9,10 +9,10 @@ export const isValidApplicationMiddleware = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { listingId } = req.params;
+  const { listingId, listingOwnerId } = req.params;
   const { userId } = req.tokenData;
 
-  if (!listingId) {
+  if (!listingId || !listingOwnerId) {
     return res.status(StatusCodesEnum.BAD_REQUEST).json({
       error: ErrorTypesEnum.LISTING_ID_NOT_PROVIDED,
       message: 'Listing ID not provided',
@@ -41,7 +41,7 @@ export const isValidApplicationMiddleware = async (
       },
     });
     if (!application) {
-      next();
+      return next();
     }
 
     return res.status(StatusCodesEnum.BAD_REQUEST).json({

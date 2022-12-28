@@ -16,8 +16,8 @@ export const isAbleToAcceptMiddleware = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { listingId } = req.params;
-  const { role, userId, employerId } = req.tokenData;
+  const { listingId, userId } = req.params;
+  const { role, employerId } = req.tokenData;
 
   if (
     (role !== RoleTypesEnum.EMPLOYER && role !== RoleTypesEnum.ADMIN) ||

@@ -57,9 +57,10 @@ model EmployerProfile {
   profilePicture String
   activityDomain String
 
-  listings Listing[]
-  ratings  Ratings[]
-  User     User      @relation(fields: [userId], references: [userId])
+  listings            Listing[]
+  ratings             Ratings[]
+  listingApplications ListingApplications[]
+  User                User                  @relation(fields: [userId], references: [userId])
 }
 
 model Listing {
@@ -94,12 +95,14 @@ model Ratings {
 }
 
 model ListingApplications {
-  listingId   String
-  userId      String
-  status      String
-  createdAt   DateTime    @default(now())
-  Listing     Listing     @relation(fields: [listingId], references: [listingId])
-  UserProfile UserProfile @relation(fields: [userId], references: [userId])
+  listingId      String
+  listingOwnerId String          @default("") // this is not needed
+  userId         String
+  status         String
+  createdAt      DateTime        @default(now())
+  Listing        Listing         @relation(fields: [listingId], references: [listingId])
+  UserProfile    UserProfile     @relation(fields: [userId], references: [userId])
+  Employer       EmployerProfile @relation(fields: [listingOwnerId], references: [employerId])
 
   @@id([listingId, userId])
 }

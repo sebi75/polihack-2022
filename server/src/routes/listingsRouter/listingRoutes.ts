@@ -34,7 +34,7 @@ listingsRouter.post(
 
 //user apply to listing
 listingsRouter.post(
-  '/apply/:listingId', //@ts-ignore
+  '/apply/:listingId/:listingOwnerId', //@ts-ignore
   isAuthenticatedMiddleware,
   isValidApplicationMiddleware,
   applyToListingController,
@@ -71,7 +71,7 @@ listingsRouter.post(
 
 //accept user application
 listingsRouter.post(
-  '/accept/:listingId', //@ts-ignore
+  '/accept/:listingId/:userId', //@ts-ignore
   isAuthenticatedMiddleware,
   isAbleToAcceptMiddleware,
   acceptUserApplicationController,
