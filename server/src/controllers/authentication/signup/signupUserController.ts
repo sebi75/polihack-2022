@@ -32,14 +32,22 @@ export const signupUserController = async (req: SignupUserControllerRequest, res
       },
     });
 
-    logger.info(`New User ${user.email} created`);
-    const token = jwt.sign(
-      { email, userId: user.userId, role: user.role },
-      process.env.JWT_SECRET as string,
-      { expiresIn: '24h' },
-    );
+    logger.info(`New User ${user.email} signed up... Waiting for email verification`);
+    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET as string, {
+      expiresIn: '24h',
+    });
 
-    return res.status(StatusCodesEnum.CREATED).json({ data: { user, userProfile, token } });
+    await prisma.emailVerification.create({
+      data: {
+        userId: user.userId,
+        token: token,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from the time emitted
+      },
+    });
+
+    return res
+      .status(StatusCodesEnum.CREATED)
+      .json({ data: { user, userProfile, status: 'Email verification sent' } });
   } catch (error) {
     logger.error(`Error creating user ${email}: ${error}`);
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({

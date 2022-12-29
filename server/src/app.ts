@@ -17,6 +17,11 @@ import { authenticationRouter, listingsRouter, usersRouter, employersRouter } fr
 import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
+//run function every 5 seconds
+setInterval(() => {
+  console.log('scheduled function that runs every 5 seconds');
+}, 5000);
+
 app.use(USERS, usersRouter);
 app.use(LISTINGS, listingsRouter);
 app.use(EMPLOYERS, employersRouter);

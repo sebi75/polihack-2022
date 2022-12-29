@@ -14,11 +14,24 @@ import {
   zodSignupUserValidator,
 } from '../../controllers/authentication/signup';
 
+import {
+  existsAndIsValidVerificationMiddleware,
+  validateTokenValidityMiddleware,
+  verifyEmailController,
+} from '../../controllers/authentication/verify';
+
 import { EndpointsEnum } from '../../types/endpoints';
 
 import { genericValidationMiddleware } from '../../middlewares';
 
 export const authenticationRouter = express.Router();
+
+authenticationRouter.post(
+  `/verify/:token`, //@ts-ignore
+  validateTokenValidityMiddleware,
+  existsAndIsValidVerificationMiddleware,
+  verifyEmailController,
+);
 
 authenticationRouter.post(
   `/user/${EndpointsEnum.SIGNUP}`,

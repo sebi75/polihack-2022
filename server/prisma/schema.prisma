@@ -17,6 +17,7 @@ datasource db {
 model User {
   userId         String   @id @default(cuid())
   email          String   @unique
+  active         Boolean  @default(false)
   hashedPassword String
   role           String
   isVerified     Boolean
@@ -25,6 +26,13 @@ model User {
 
   UserProfile     UserProfile? // field optional because it can have either employer profile or user profile
   EmployerProfile EmployerProfile? // read above
+}
+
+model EmailVerification {
+  id      String   @id @default(cuid())
+  userId  String   @unique
+  token   String
+  expires DateTime
 }
 
 model UserProfile {

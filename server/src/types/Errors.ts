@@ -52,6 +52,10 @@ export enum ErrorMessagesEnum {
   AUTH_INVALID_ROLE = 'Invalid role',
   USER_ALREADY_EXISTS = 'User already exists',
   USER_NON_EXISTENT = 'User non existent',
+  TOKEN_NOT_PROVIDED = 'Token not provided',
+  INVALID_TOKEN = 'Invalid token',
+  USER_VERIFICATION_NOT_FOUND = 'User verification not found',
+  VERIFICATION_TOKEN_EXPIRED = 'Verification token expired',
 
   // Listings
   LISTING_NOT_FOUND = 'Listing not found',
