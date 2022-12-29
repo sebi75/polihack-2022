@@ -3,4 +3,5 @@ export type JwtPayload = {
   userId: string;
   role: string;
   employerId?: string;
+  active: boolean;
 };

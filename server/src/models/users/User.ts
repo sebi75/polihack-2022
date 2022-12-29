@@ -4,6 +4,7 @@ export type UserResultType = {
   hashedPassword: string;
   role: string;
   isVerified: boolean;
+  active: boolean;
   createdAt: Date;
   updatedAt: Date;
 

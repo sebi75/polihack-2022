@@ -36,6 +36,7 @@ export enum ErrorTypesEnum {
   UNAUTHORIZED = 'UNAUTHORIZED',
   FORBIDDEN = 'FORBIDDEN',
   BAD_REQUEST = 'BAD_REQUEST',
+  ACCOUNT_NOT_ACTIVE = 'ACCOUNT_NOT_ACTIVE',
 
   //FILE
   FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR',
@@ -90,4 +91,7 @@ export enum ErrorMessagesEnum {
   FILE_NOT_FOUND = 'File not found',
   FILE_EMPTY = 'File empty',
   FILE_UPLOAD_ERROR = 'File upload error',
+
+  //GENERAL
+  ACCOUNT_NOT_ACTIVE = 'Account not active',
 }

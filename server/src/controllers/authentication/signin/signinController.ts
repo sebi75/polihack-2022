@@ -17,8 +17,11 @@ export const singinController = async (req: SigninControllerRequest, res: Respon
     });
   }
 
-  const { userId, role } = req.body.user;
-  const token = jwt.sign({ email: email, userId, role }, process.env.JWT_SECRET as string);
+  const { userId, role, active } = req.body.user;
+  const token = jwt.sign(
+    { email: email, userId, role, active: active },
+    process.env.JWT_SECRET as string,
+  );
 
   logger.info(`User ${email} logged in`);
 

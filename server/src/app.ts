@@ -22,34 +22,10 @@ import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 //   console.log('scheduled function that runs every 5 seconds');
 // }, 5000);
 
-// app.get('/test/:token', (req, res) => {
-//   logger.info({ token: req.params.token });
-//   return res.status(200).json({
-//     hello: 'world',
-//   });
-// });
-
 app.use(USERS, usersRouter);
 app.use(LISTINGS, listingsRouter);
 app.use(EMPLOYERS, employersRouter);
 app.use(AUTHENTICATION, authenticationRouter);
-
-// app.get('/v1/text', async (req, res) => {
-//   const command = new GetObjectCommand({
-//     Bucket: process.env.AWS_S3_BUCKET_NAME,
-//     Key: 'test-directory/test.txt',
-//   });
-//   try {
-//     const response = await s3Instance.send(command);
-//     const body = await response.Body?.transformToString();
-//     console.log(body);
-//     return res.status(200).json({ content: body });
-//     // return res.status(200).json(response)
-//   } catch (error) {
-//     logger.error(error);
-//     return res.status(500).json(error);
-//   }
-// });
 
 // match all routes that are not defined for not found
 app.use('*', (req, res) => {
