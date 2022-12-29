@@ -27,7 +27,7 @@ import { genericValidationMiddleware } from '../../middlewares';
 export const authenticationRouter = express.Router();
 
 authenticationRouter.post(
-  `/verify/:token`, //@ts-ignore
+  '/verify/:token', //@ts-ignore
   validateTokenValidityMiddleware,
   existsAndIsValidVerificationMiddleware,
   verifyEmailController,

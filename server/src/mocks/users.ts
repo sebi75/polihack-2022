@@ -13,7 +13,7 @@ const user_signup2 = {
   birthday: '19-03-2005',
 };
 
-//this is successful
+//this is unsuccessful
 const user_signup3 = {
   email: 'sebastiansemeniuc@gmail.com',
   password: 'qwerty123',

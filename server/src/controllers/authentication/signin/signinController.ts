@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { SigninControllerRequest } from './types';
 
-import { encryptPassword, logger } from '../../../utils';
+import { encryptPassword, logger } from '../../../services';
 import jwt from 'jsonwebtoken';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 

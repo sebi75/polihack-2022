@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
 import { RequestAfterAuthentication } from '../../../types'; // the info we store in the token
-import { decodeJwt } from '../../../utils';
+import { decodeJwt } from '../../../services';
 
 export const isAuthenticatedMiddleware = (
   req: RequestAfterAuthentication,

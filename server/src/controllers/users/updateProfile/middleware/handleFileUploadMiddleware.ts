@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
-import { uploadToS3 } from '../../../../utils';
+import { uploadToS3 } from '../../../../services';
 import { UpdateUserRequest } from '../types';
 
 import { UpdateEmployerRequest } from '../../../employers/updateProfile/types';

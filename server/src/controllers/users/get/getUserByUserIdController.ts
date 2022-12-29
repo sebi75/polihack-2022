@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { prisma } from '../../../lib';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 import { RequestAfterAuthentication } from '../../../types';
-import { logger } from '../../../utils';
+import { logger } from '../../../services';
 
 export const getUserByUserIdController = async (req: RequestAfterAuthentication, res: Response) => {
   const { userId } = req.params;

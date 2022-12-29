@@ -8,7 +8,7 @@ import {
   ListingApplicationTypeStatusEnum,
   StatusCodesEnum,
 } from '../../../types';
-import { logger } from '../../../utils';
+import { logger } from '../../../services';
 
 export const acceptUserApplicationController = async (
   req: AcceptUserApplicationRequest,

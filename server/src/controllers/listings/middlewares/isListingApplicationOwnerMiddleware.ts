@@ -3,7 +3,7 @@ import { prisma } from '../../../lib';
 import { CancelUserApplicationRequest } from '../types';
 
 import { RoleTypesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
-import { logger } from '../../../utils';
+import { logger } from '../../../services';
 
 //this middleware checks if the application exists and if
 //the user is the owner of the application

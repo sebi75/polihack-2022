@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { SignupUserControllerRequest } from './types';
 import jwt from 'jsonwebtoken';
 
-import { encryptPassword, logger } from '../../../utils';
+import { encryptPassword, logger, sendMail } from '../../../services';
 import { prisma } from '../../../lib';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
 
@@ -43,6 +43,12 @@ export const signupUserController = async (req: SignupUserControllerRequest, res
         token: token,
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from the time emitted
       },
+    });
+
+    sendMail({
+      to: user.email,
+      subject: 'Email Verification',
+      html: `<a href="http://localhost:8080/api/authentication/verify/${token}">Click here to verify your email</a>`,
     });
 
     return res

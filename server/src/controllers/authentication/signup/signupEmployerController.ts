@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { prisma } from '../../../lib';
 import { ErrorMessagesEnum, ErrorTypesEnum, RoleTypesEnum, StatusCodesEnum } from '../../../types';
-import { encryptPassword, logger } from '../../../utils';
+import { encryptPassword, logger } from '../../../services';
 import { SignupEmployerControllerRequest } from './types';
 
 import jwt from 'jsonwebtoken';

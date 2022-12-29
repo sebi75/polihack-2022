@@ -1,7 +1,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 
-import { logger } from './utils';
+import { logger } from './services';
 
 import bodyParser from 'body-parser';
 dotenv.config();
@@ -18,9 +18,16 @@ import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
 //run function every 5 seconds
-setInterval(() => {
-  console.log('scheduled function that runs every 5 seconds');
-}, 5000);
+// setInterval(() => {
+//   console.log('scheduled function that runs every 5 seconds');
+// }, 5000);
+
+// app.get('/test/:token', (req, res) => {
+//   logger.info({ token: req.params.token });
+//   return res.status(200).json({
+//     hello: 'world',
+//   });
+// });
 
 app.use(USERS, usersRouter);
 app.use(LISTINGS, listingsRouter);
