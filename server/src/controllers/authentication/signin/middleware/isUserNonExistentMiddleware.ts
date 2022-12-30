@@ -24,6 +24,14 @@ export const isUserNonExistentMiddleware = async (
         message: ErrorMessagesEnum.USER_NON_EXISTENT,
       });
     }
+
+    if (!user.active) {
+      return res.status(StatusCodesEnum.BAD_REQUEST).json({
+        error: ErrorTypesEnum.AUTH_USER_NOT_ACTIVE,
+        message: ErrorMessagesEnum.AUTH_USER_NOT_ACTIVE,
+      });
+    }
+
     req.body.user = user;
     next();
   } catch (error) {

@@ -1,11 +1,18 @@
 import { ListingApplicationTypeStatusEnum } from '../../types';
 
+export enum ListingActiveStatusEnum {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  PAUSED = 'PAUSED',
+}
+
 export type ListingResultType = {
   title: string; //editable
   endDate: string; //editable format: MM-DD-YYYY
   startDate: string; //editable format: MM-DD-YYYY
   location: string;
   photoURL: string; //editable
+  activeStatus: ListingActiveStatusEnum;
   jobOfferId: string;
   employerId: string;
   hoursPerDay: number; //editable

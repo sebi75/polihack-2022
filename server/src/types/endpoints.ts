@@ -4,6 +4,7 @@ export const LISTINGS = `/${API}/listings`;
 export const AUTHENTICATION = `/${API}/authentication`;
 export const USERS = `/${API}/users`;
 export const EMPLOYERS = `/${API}/employers`;
+export const RATINGS = `/${API}/ratings`;
 
 export enum EndpointsEnum {
   CREATE = 'create',

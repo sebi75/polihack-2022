@@ -9,6 +9,7 @@ export enum ErrorTypesEnum {
   AUTH_INVALID_ROLE = 'AUTH_INVALID_ROLE',
   USER_ALREADY_EXISTS = 'USER_ALREADY_EXISTS',
   USER_NON_EXISTENT = 'USER_NON_EXISTENT',
+  AUTH_USER_NOT_ACTIVE = 'AUTH_USER_NOT_ACTIVE',
 
   // Listings
   LISTING_NOT_FOUND = 'LISTING_NOT_FOUND',
@@ -57,6 +58,7 @@ export enum ErrorMessagesEnum {
   INVALID_TOKEN = 'Invalid token',
   USER_VERIFICATION_NOT_FOUND = 'User verification not found',
   VERIFICATION_TOKEN_EXPIRED = 'Verification token expired',
+  AUTH_USER_NOT_ACTIVE = 'User not active',
 
   // Listings
   LISTING_NOT_FOUND = 'Listing not found',

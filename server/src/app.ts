@@ -13,16 +13,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* ROUTES COME HERE */
-import { authenticationRouter, listingsRouter, usersRouter, employersRouter } from './routes';
-import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS } from './types/endpoints';
+import {
+  authenticationRouter,
+  listingsRouter,
+  usersRouter,
+  employersRouter,
+  ratingsRouter,
+} from './routes';
+import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS, RATINGS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
-//run function every 5 seconds
-// setInterval(() => {
-//   console.log('scheduled function that runs every 5 seconds');
-// }, 5000);
-
 app.use(USERS, usersRouter);
+app.use(RATINGS, ratingsRouter);
 app.use(LISTINGS, listingsRouter);
 app.use(EMPLOYERS, employersRouter);
 app.use(AUTHENTICATION, authenticationRouter);

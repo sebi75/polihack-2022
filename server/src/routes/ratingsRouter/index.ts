@@ -1,0 +1,1 @@
+export { ratingsRouter } from './ratingsRouter';
