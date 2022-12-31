@@ -3,25 +3,14 @@ import {
 	View,
 	StyleSheet,
 	Dimensions,
-	Alert,
 	ActivityIndicator,
 } from 'react-native';
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import React, { FunctionComponent, useMemo, useState } from 'react';
 import Colors from '../../../constants/Colors';
 import { CustomButton } from '../../../components';
 
-import { formatDateFromDatenow, guid } from '../../../utils';
-import { isUserAlreadyApplied } from '../../../archive/jobs/isUserAlreadyApplied';
+import { formatDateFromDatenow } from '../../../utils';
 import { useGetUser } from '../../../hooks';
-
-import {
-	IJobApplicationModel,
-	JobApplicationStatusEnum,
-} from '../../../archive/models/JobApplicationModel';
-import { createJobApplication } from '../../../archive/jobs/applyToJobs';
-import { isUserAbleToApply } from '../../../api/user/isAbleToApply';
-import { queryClient } from '../../../App';
-import { Collections } from '../../../types';
 
 interface IJobCardItemProps {
 	title: string;
@@ -55,34 +44,6 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
 	const [isUserAbleToApplyData, setisUserAbleToApplyData] =
 		useState<boolean>(false);
 
-	const handleApplyJobsChecks = async () => {
-		try {
-			const isAlreadyApplied = await isUserAlreadyApplied(
-				data?.userId as string,
-				jobOfferId
-			);
-
-			if (isAlreadyApplied) {
-				Alert.alert('You have already applied to this job');
-			} else {
-				Alert.alert('Are you sure you want to apply to this job?', '', [
-					{
-						text: 'Cancel',
-						style: 'cancel',
-					},
-					{
-						text: 'Apply',
-						onPress: async () => {
-							await handleApplyJob();
-						},
-					},
-				]);
-			}
-		} catch (error) {
-			Alert.alert('Oops! Something went wrong.');
-		}
-	};
-
 	if (isUserAbleToApplyLoading) {
 		return (
 			<View style={detailStyles.card}>
@@ -90,31 +51,6 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
 			</View>
 		);
 	}
-
-	const handleApplyJob = async () => {
-		const application: IJobApplicationModel = {
-			status: JobApplicationStatusEnum.pending,
-			createdAt: Date.now(),
-			jobApplicationId: guid(),
-			jobOfferId: jobOfferId,
-			updatedAt: Date.now(),
-			userId: data?.userId as string,
-		};
-
-		try {
-			const response = await createJobApplication(application);
-			queryClient.invalidateQueries([
-				Collections.jobApplications,
-				data?.userId,
-			]);
-			Alert.alert(
-				'Successfull',
-				'You have successfully applied to this job, watch for updates from the employer'
-			);
-		} catch (error) {
-			Alert.alert('Oops! Something went wrong.');
-		}
-	};
 
 	const startAtDateFormatted = useMemo(() => {
 		const date = formatDateFromDatenow(+estimatedStartDate);
@@ -125,29 +61,6 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
 		const date = formatDateFromDatenow(+estimatedEndDate);
 		return date;
 	}, []);
-
-	const handleIsAbleToApply = async () => {
-		try {
-			const res = await isUserAbleToApply(data?.userId as string);
-			setisUserAbleToApplyData(res);
-
-			if (!res) {
-				Alert.alert(
-					'You are not allowed to apply to jobs',
-					'You need to complete your profile before you can apply to jobs'
-				);
-			}
-		} catch (error) {
-			Alert.alert('Oops! Something went wrong!');
-		}
-	};
-
-	useEffect(() => {
-		if (!data) {
-			return;
-		}
-		handleIsAbleToApply();
-	}, [data, isUserAbleToApplyData]);
 
 	console.log({ isUserAbleToApplyData });
 
@@ -212,7 +125,7 @@ export const JobCardSection: FunctionComponent<IJobCardItemProps> = ({
 			</View>
 			<CustomButton
 				title="APPLY NOW"
-				onPress={handleApplyJobsChecks}
+				onPress={() => console.log('from scratch')}
 				disable={!isUserAbleToApplyData}
 				textStyle={{
 					fontSize: 22,

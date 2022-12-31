@@ -4,96 +4,88 @@ import {
 	Dimensions,
 	StyleSheet,
 	TouchableOpacity,
-	Alert,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { HideKeyboardView } from '../../../components/';
 
-import { setUserToAsyncStorage } from '../../../utils/asyncStorage';
+// import { setUserToAsyncStorage } from '../../../utils/asyncStorage';
 
 import Colors from '../../../constants/Colors';
 
 import { CustomInput } from '../../../components/CustomInput';
 import { CustomButton } from '../../../components';
-import formReducer from '../../../components/CustomInput/inputReducer';
 import { ErrorComponent } from '../../../components/ErrorComponent';
+import { Controller, useForm } from 'react-hook-form';
 
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useReducer } from 'react';
-import { signInWithEmail } from '../../../api';
-import { useGetUser } from '../../../hooks';
-
-const FORM_UPDATE = 'FORM_UPDATE';
+// import { useGetUser } from '../../../hooks';
 
 const { width } = Dimensions.get('window');
 export const SigninScreen: React.FC = () => {
-	const { data, isLoading, error } = useGetUser();
-	const [formState, formDispatch] = useReducer(formReducer, initialFormState);
-	const [signinError, setSigninError] = useState<string | undefined>(undefined);
-	const navigation: any = useNavigation();
-
-	const inputChangeHandler = useCallback(
-		(inputIdentifier: any, inputValue: any, inputValidity: any) => {
-			formDispatch({
-				type: FORM_UPDATE,
-				value: inputValue,
-				isValid: inputValidity,
-				inputId: inputIdentifier,
-			});
+	// const { data, isLoading, error } = useGetUser();
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			email: '',
+			password: '',
 		},
-		[formDispatch]
-	);
+	});
 
-	const signInHandler = async () => {
-		try {
-			if (formState?.isFormValid) {
-				const { email, password } = formState.inputValues;
-				const response = await signInWithEmail(email, password);
-				if (response) {
-					console.log(response);
-					await setUserToAsyncStorage(response);
-
-					navigation.navigate('BottomTabNavigator');
-				} else {
-					setSigninError('Something went wrong');
-				}
-			}
-		} catch (error: any) {
-			Alert.alert('Oops! Something went wrong!');
-		}
+	const handleSigninClick = (data: any) => {
+		console.log(data);
 	};
 
-	useEffect(() => {
-		if (data) {
-			navigation.navigate('BottomTabNavigator');
-		}
-	}, [data]);
+	const navigation: any = useNavigation();
+
+	// useEffect(() => {
+	// 	if (data) {
+	// 		navigation.navigate('BottomTabNavigator');
+	// 	}
+	// }, [data]);
 
 	return (
 		<HideKeyboardView withAvoidView>
 			<View style={styles.inputContainer}>
 				<Text style={styles.mainTextLabelStyle}>Sign In</Text>
-				<CustomInput
-					id={'email'}
-					label={'Email'}
-					keyboardType={'email-address'}
-					required
-					email
-					autoCapitalize={'none'}
-					errorText={'Please enter a valid email address!'}
-					initialValue={''}
-					onInputChange={inputChangeHandler}
+				<Controller
+					control={control}
+					rules={{
+						required: true,
+					}}
+					name="email"
+					render={({ field: { onChange, onBlur, value } }) => (
+						<CustomInput
+							inputLabel={'Email'}
+							keyboardType={'email-address'}
+							autoCapitalize={'none'}
+							value={value}
+							onBlur={onBlur}
+							errorText={'Please enter a valid email address!'}
+							onChangeText={onChange}
+						/>
+					)}
 				/>
-				<CustomInput
-					id={'password'}
-					label={'Password'}
-					secureTextEntry
-					required
-					minLength={5}
-					errorText={'Please enter a valid password!'}
-					initialValue={''}
-					onInputChange={inputChangeHandler}
+				<Controller
+					control={control}
+					rules={{
+						required: true,
+					}}
+					name="password"
+					render={({ field: { onChange, onBlur, value } }) => (
+						<CustomInput
+							inputLabel={'Password'}
+							keyboardType={'visible-password'}
+							autoCapitalize={'none'}
+							value={value}
+							onBlur={onBlur}
+							errorText={'Please enter a valid password!'}
+							onChangeText={onChange}
+						/>
+					)}
 				/>
 
 				<TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
@@ -102,15 +94,15 @@ export const SigninScreen: React.FC = () => {
 					</Text>
 				</TouchableOpacity>
 
-				{signinError != undefined ? (
+				{/* {signinError != undefined ? (
 					<ErrorComponent errorMessage={signinError} />
 				) : (
 					<View style={{ height: 30 }}></View>
-				)}
+				)} */}
 
 				<CustomButton
 					title="Sign In"
-					onPress={signInHandler}
+					onPress={handleSubmit(handleSigninClick)}
 					buttonStyle={{
 						width: width * 0.5,
 						alignSelf: 'center',
@@ -158,15 +150,3 @@ const styles = StyleSheet.create({
 		color: 'red',
 	},
 });
-
-const initialFormState = {
-	inputValues: {
-		email: '',
-		password: '',
-	},
-	inputValidities: {
-		email: false,
-		password: false,
-	},
-	isFormValid: false,
-};

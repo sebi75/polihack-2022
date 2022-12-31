@@ -19,14 +19,12 @@ import Colors from '../../constants/Colors';
 
 import { Avatar } from 'react-native-paper';
 
-import { useGetUser } from '../../hooks/useGetUser';
+// import { useGetUser } from '../../hooks/useGetUser';
 import { ErrorComponent } from '../../components/ErrorComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useForm, Controller } from 'react-hook-form';
 import { CustomButton } from '../../components';
-import { editUser } from '../../api/user/editUser';
 import { queryClient } from '../../App';
-import { Collections } from '../../types';
 
 import { getUserFromAsyncStorage } from '../../utils/asyncStorage';
 import { IUserModel } from '../../archive/models';
@@ -36,7 +34,7 @@ export const EditProfileScreen: FunctionComponent = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [userData, setUserData] = useState<IUserModel | null>(null);
 	const [imageUri, setImageUri] = useState<string | null>(null);
-	const { data, error, isLoading: isGetUserLoading } = useGetUser();
+	// const { data, error, isLoading: isGetUserLoading } = useGetUser();
 	const navigation: any = useNavigation();
 
 	const {
@@ -52,30 +50,7 @@ export const EditProfileScreen: FunctionComponent = () => {
 		},
 	});
 
-	const onSubmit = async () => {
-		const formValues = getValues();
-
-		const userDataa = {
-			...userData,
-			...formValues,
-			profilePicture: imageUri || userData?.profilePicture,
-		};
-
-		try {
-			setIsLoading(true);
-			const response = await editUser(userDataa, data?.userId as string);
-			setIsLoading(false);
-			Alert.alert('Success', 'Profile updated successfully.', [
-				{
-					text: 'OK',
-					onPress: () => {
-						navigation.goBack();
-					},
-				},
-			]);
-			queryClient.invalidateQueries({ queryKey: [Collections.users] });
-		} catch (error) {}
-	};
+	const onSubmit = async () => {};
 
 	const pickImageAsync = async () => {
 		setImageUri('');
@@ -124,10 +99,10 @@ export const EditProfileScreen: FunctionComponent = () => {
 		return uploadUri;
 	};
 
-	const picture =
-		data?.profilePicture != '' && data?.profilePicture
-			? data?.profilePicture
-			: avatarURL;
+	// const picture =
+	// 	data?.profilePicture != '' && data?.profilePicture
+	// 		? data?.profilePicture
+	// 		: avatarURL;
 
 	useEffect(() => {
 		getUserFromAsyncStorage().then((user) => {
@@ -149,17 +124,17 @@ export const EditProfileScreen: FunctionComponent = () => {
 		});
 	}, [userData]);
 
-	if (isGetUserLoading || isLoading) {
-		return (
-			<View style={styles.profileScreen}>
-				<ActivityIndicator size={'large'} color={Colors.primary} />
-			</View>
-		);
-	}
+	// if (isGetUserLoading || isLoading) {
+	// 	return (
+	// 		<View style={styles.profileScreen}>
+	// 			<ActivityIndicator size={'large'} color={Colors.primary} />
+	// 		</View>
+	// 	);
+	// }
 
-	if (error) {
-		return <ErrorComponent errorMessage="An error occured loading the user!" />;
-	}
+	// if (error) {
+	// 	return <ErrorComponent errorMessage="An error occured loading the user!" />;
+	// }
 
 	return (
 		<ScrollView style={styles.profileScreen}>
@@ -168,9 +143,11 @@ export const EditProfileScreen: FunctionComponent = () => {
 				<TouchableOpacity onPress={pickImageAsync} style={styles.profileCard}>
 					<Avatar.Image
 						size={width * 0.15}
-						source={{
-							uri: picture,
-						}}
+						source={
+							{
+								// uri: picture,
+							}
+						}
 						style={{
 							marginBottom: 10,
 						}}

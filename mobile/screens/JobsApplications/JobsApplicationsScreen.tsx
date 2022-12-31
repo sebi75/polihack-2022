@@ -10,15 +10,15 @@ import {
 import { FunctionComponent } from 'react';
 
 import Colors from '../../constants/Colors';
-import { useGetUserApplications } from '../../hooks/useGetUserApplicationts';
+// import { useGetUserApplications } from '../../hooks/useGetUserApplicationts';
 import { IJobOfferModel } from '../../archive/models/JobOfferModel';
 
 import { JobAppliedItem } from '../../components/JobAppliedItem';
 import { queryClient } from '../../App';
-import { Collections } from '../../types';
-import { useGetUser } from '../../hooks';
+// import { Collections } from '../../types';
+// import { useGetUser } from '../../hooks';
 
-import { GetUserApplicationsResult } from '../../archive/jobs/getUserApplications';
+// import { GetUserApplicationsResult } from '../../archive/jobs/getUserApplications';
 import { ScrollView } from 'react-native-gesture-handler';
 
 interface IJobsApplicationsScreenProps {
@@ -34,40 +34,40 @@ export const JobsApplicationsScreen: FunctionComponent<
 	IJobsApplicationsScreenProps
 > = ({ route }) => {
 	const { userId } = route.params;
-	const { data: userData, isLoading: isUserDataLoading } = useGetUser();
-	const {
-		data: userApplicationsData,
-		error,
-		isLoading: isUserApplicationsLoading,
-	} = useGetUserApplications(userId);
+	// const { data: userData, isLoading: isUserDataLoading } = useGetUser();
+	// const {
+	// 	data: userApplicationsData,
+	// 	error,
+	// 	isLoading: isUserApplicationsLoading,
+	// } = useGetUserApplications(userId);
 
-	if (isUserApplicationsLoading) {
-		return (
-			<View style={[styles.screen, { justifyContent: 'center' }]}>
-				<ActivityIndicator size={'large'} color={Colors.primary} />
-			</View>
-		);
-	}
+	// if (isUserApplicationsLoading) {
+	// 	return (
+	// 		<View style={[styles.screen, { justifyContent: 'center' }]}>
+	// 			<ActivityIndicator size={'large'} color={Colors.primary} />
+	// 		</View>
+	// 	);
+	// }
 
-	if (userApplicationsData && userApplicationsData.length === 0) {
-		return (
-			<View style={[styles.screen, { justifyContent: 'center' }]}>
-				<Text
-					style={{
-						color: Colors.primary,
-						fontSize: 18,
-						textAlign: 'center',
-					}}
-				>
-					You have not applied to any job offers yet.
-				</Text>
-			</View>
-		);
-	}
+	// if (userApplicationsData && userApplicationsData.length === 0) {
+	// 	return (
+	// 		<View style={[styles.screen, { justifyContent: 'center' }]}>
+	// 			<Text
+	// 				style={{
+	// 					color: Colors.primary,
+	// 					fontSize: 18,
+	// 					textAlign: 'center',
+	// 				}}
+	// 			>
+	// 				You have not applied to any job offers yet.
+	// 			</Text>
+	// 		</View>
+	// 	);
+	// }
 
 	return (
 		<View style={styles.screen}>
-			<FlatList
+			{/* <FlatList
 				showsVerticalScrollIndicator={false}
 				showsHorizontalScrollIndicator={false}
 				onRefresh={() => {
@@ -95,7 +95,7 @@ export const JobsApplicationsScreen: FunctionComponent<
 					} = item; // props destructuring
 					return <JobAppliedItem {...item} />;
 				}}
-			/>
+			/> */}
 		</View>
 	);
 };
