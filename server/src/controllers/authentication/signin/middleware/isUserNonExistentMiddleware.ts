@@ -2,7 +2,14 @@ import { Response, NextFunction } from 'express';
 import { SigninControllerRequest } from '../types';
 
 import { prisma } from '../../../../lib';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
+import {
+  ErrorMessagesEnum,
+  ErrorTypesEnum,
+  RoleTypesEnum,
+  StatusCodesEnum,
+} from '../../../../types';
+import { UserResultType } from '../../../../models/users';
+import { exclude } from '../../../../utils';
 
 export const isUserNonExistentMiddleware = async (
   req: SigninControllerRequest,
@@ -25,6 +32,23 @@ export const isUserNonExistentMiddleware = async (
       });
     }
 
+    req.body.hashedPassword = user.hashedPassword;
+
+    let profile;
+    if (user.role === RoleTypesEnum.EMPLOYER) {
+      profile = await prisma.employerProfile.findUnique({
+        where: {
+          userId: user.userId,
+        },
+      });
+    } else if (user.role === RoleTypesEnum.USER) {
+      profile = await prisma.userProfile.findUnique({
+        where: {
+          userId: user.userId,
+        },
+      });
+    }
+
     if (!user.active) {
       return res.status(StatusCodesEnum.BAD_REQUEST).json({
         error: ErrorTypesEnum.AUTH_USER_NOT_ACTIVE,
@@ -32,7 +56,14 @@ export const isUserNonExistentMiddleware = async (
       });
     }
 
-    req.body.user = user;
+    if (!profile) {
+      return;
+    }
+
+    const userWithoutPassword = exclude(user, ['hashedPassword']);
+
+    req.body.user = userWithoutPassword as UserResultType;
+    req.body.user.profile = profile;
     next();
   } catch (error) {
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({

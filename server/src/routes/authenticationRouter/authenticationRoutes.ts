@@ -48,7 +48,7 @@ authenticationRouter.post(
 );
 
 authenticationRouter.post(
-  EndpointsEnum.SIGNIN,
+  `/${EndpointsEnum.SIGNIN}`,
   genericValidationMiddleware(zodSigninValidator),
   isUserNonExistentMiddleware, // this middleware adds a level of abstraction from the main controller,
   singinController, // so that the controller doesn't have to worry about checking it

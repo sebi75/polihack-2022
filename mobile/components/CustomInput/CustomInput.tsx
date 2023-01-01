@@ -1,40 +1,64 @@
 import {
 	View,
 	Text,
-	TextInput,
 	StyleSheet,
 	Dimensions,
 	TextInputProps,
 } from 'react-native';
+import { useState } from 'react';
 
 import Colors from '../../constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+import { Input } from 'native-base';
 
 interface IInputProps extends TextInputProps {
-	inputLabel?: string;
+	password?: boolean;
 	errorText?: string;
+	inputLabel?: string;
 }
 
 const { width } = Dimensions.get('window');
 export const CustomInput: React.FC<IInputProps> = ({
-	inputLabel,
-	errorText,
-	onChangeText,
 	value,
 	onBlur,
+	password,
+	errorText,
+	inputLabel,
+	onChangeText,
+	...rest
 }) => {
+	const [showPassword, setShowPassword] = useState(false);
+
+	const handleEyePress = () => {
+		setShowPassword((prevState) => !prevState);
+	};
+
 	return (
 		<View style={styles.formControl}>
 			<Text style={styles.label}>{inputLabel}</Text>
-			<TextInput
-				style={styles.input}
+			<Input
+				InputRightElement={
+					password ? (
+						<Ionicons
+							name={!showPassword ? 'eye' : 'eye-off'}
+							onPress={handleEyePress}
+							size={20}
+						/>
+					) : undefined
+				}
 				value={value}
-				placeholderTextColor="#aaa"
 				onBlur={onBlur}
+				variant="underlined"
+				secureTextEntry={password && !showPassword}
+				placeholderTextColor="#aaa"
 				onChangeText={onChangeText}
+				{...rest}
 			/>
-			<View style={styles.errorContainer}>
-				<Text style={styles.errorText}>{errorText}</Text>
-			</View>
+			{errorText && (
+				<View style={styles.errorContainer}>
+					<Text style={styles.errorText}>{errorText}</Text>
+				</View>
+			)}
 		</View>
 	);
 };
@@ -45,25 +69,12 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		fontWeight: 'bold',
-		marginVertical: 5,
+		marginBottom: 10,
 		color: Colors.textColor,
 	},
-	input: {
-		paddingHorizontal: 2,
-		paddingVertical: 5,
-		borderWidth: 2,
-		borderColor: 'rgba(255,255,255,0.2)',
-		borderRadius: 7,
-		backgroundColor: 'rgba(255,255,255,0.15)',
-		width: width * 0.7,
-		height: 40,
-		color: '#fff',
-	},
-
 	errorContainer: {
 		marginVertical: 5,
 	},
-
 	errorText: {
 		fontSize: 14,
 		color: Colors.buttonColors.danger,

@@ -1,2 +1,3 @@
 export const USERS = 'users';
-export const SIGNIN = 'signin';
+export const USER = 'user';
+export const SIGNIN = 'authentication/signin';

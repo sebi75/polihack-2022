@@ -10,7 +10,9 @@ export const singinController = async (req: SigninControllerRequest, res: Respon
 
   const hashedPassword = encryptPassword(password);
 
-  if (req.body.user.hashedPassword !== hashedPassword) {
+  console.log({ reqBodyUser: req.body.user });
+
+  if (req.body.hashedPassword !== hashedPassword) {
     return res.status(StatusCodesEnum.BAD_REQUEST).json({
       error: ErrorTypesEnum.AUTH_INVALID_PASSWORD,
       message: ErrorMessagesEnum.AUTH_INVALID_PASSWORD,
@@ -24,7 +26,7 @@ export const singinController = async (req: SigninControllerRequest, res: Respon
     process.env.JWT_SECRET as string,
   );
 
-  logger.info(`User ${email} logged in`);
+  logger.info(`User ${email} logged in with token: ${token}`);
 
   return res.status(StatusCodesEnum.OK).json({ data: { token, user: req.body.user } });
 };

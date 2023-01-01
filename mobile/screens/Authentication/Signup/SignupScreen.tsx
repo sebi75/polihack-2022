@@ -15,7 +15,6 @@ import { CustomButton } from '../../../components';
 import { ErrorComponent } from '../../../components/ErrorComponent';
 
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useEffect, useReducer, useState } from 'react';
 // import { useGetUser } from '../../../hooks';
 import { setUserToAsyncStorage } from '../../../utils';
 
@@ -24,7 +23,6 @@ const FORM_UPDATE = 'FORM_UPDATE';
 const { width } = Dimensions.get('window');
 export const SignupScreen: React.FC = () => {
 	// const { data } = useGetUser();
-	const [signUpError, setSignupError] = useState<string | undefined>(undefined);
 	const navigation: any = useNavigation();
 
 	const signUpHandler = () => {};
@@ -67,11 +65,11 @@ export const SignupScreen: React.FC = () => {
 					</Text>
 				</TouchableOpacity>
 
-				{signUpError != undefined ? (
+				{/* {signUpError != undefined ? (
 					<ErrorComponent errorMessage={signUpError} />
 				) : (
 					<View style={{ height: 30 }}></View>
-				)}
+				)} */}
 
 				<CustomButton
 					title="Sign Up"

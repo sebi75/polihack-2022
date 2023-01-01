@@ -1,56 +1,81 @@
 import {
 	View,
-	Text,
 	Dimensions,
 	StyleSheet,
 	TouchableOpacity,
+	Text as RNText,
+	Alert as RNAlert,
 } from 'react-native';
-import { useState } from 'react';
 
 import { HideKeyboardView } from '../../../components/';
 
-// import { setUserToAsyncStorage } from '../../../utils/asyncStorage';
-
 import Colors from '../../../constants/Colors';
+import {
+	Alert,
+	CloseIcon,
+	HStack,
+	IconButton,
+	VStack,
+	Text,
+} from 'native-base';
 
 import { CustomInput } from '../../../components/CustomInput';
 import { CustomButton } from '../../../components';
-import { ErrorComponent } from '../../../components/ErrorComponent';
 import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useNavigation } from '@react-navigation/native';
-// import { useGetUser } from '../../../hooks';
+import { useSignin } from '../../../hooks/useSignin';
+import { ActivityIndicator } from 'react-native-paper';
+import { zodSigninFormSchema } from './utils';
+import { setTokenInAsyncStorage } from '../../../utils';
+import { queryClient } from '../../../App';
 
-const { width } = Dimensions.get('window');
+interface SigninFormState {
+	email: string;
+	password: string;
+}
+
+const { width, height } = Dimensions.get('window');
 export const SigninScreen: React.FC = () => {
-	// const { data, isLoading, error } = useGetUser();
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({
+	} = useForm<SigninFormState>({
 		defaultValues: {
 			email: '',
 			password: '',
 		},
+		resolver: zodResolver(zodSigninFormSchema),
 	});
-
-	const handleSigninClick = (data: any) => {
-		console.log(data);
-	};
-
+	const { mutate, isLoading, error, reset } = useSignin();
 	const navigation: any = useNavigation();
 
-	// useEffect(() => {
-	// 	if (data) {
-	// 		navigation.navigate('BottomTabNavigator');
-	// 	}
-	// }, [data]);
+	const handleSigninClick = (data: SigninFormState) => {
+		mutate(
+			{
+				email: data.email,
+				password: data.password,
+			},
+			{
+				onSuccess: async (data) => {
+					const { token, user } = data.data;
+					queryClient.setQueryData(['client-user '], user);
+					await setTokenInAsyncStorage(token);
+					navigation.navigate('BottomTabNavigator');
+				},
+				onError: (error: any) => {
+					RNAlert.alert('Error', error.message);
+				},
+			}
+		);
+	};
 
 	return (
 		<HideKeyboardView withAvoidView>
 			<View style={styles.inputContainer}>
-				<Text style={styles.mainTextLabelStyle}>Sign In</Text>
+				<RNText style={styles.mainTextLabelStyle}>Sign In</RNText>
 				<Controller
 					control={control}
 					rules={{
@@ -60,11 +85,11 @@ export const SigninScreen: React.FC = () => {
 					render={({ field: { onChange, onBlur, value } }) => (
 						<CustomInput
 							inputLabel={'Email'}
-							keyboardType={'email-address'}
+							placeholder={'Enter your email'}
 							autoCapitalize={'none'}
 							value={value}
 							onBlur={onBlur}
-							errorText={'Please enter a valid email address!'}
+							errorText={errors.email && errors.email.message}
 							onChangeText={onChange}
 						/>
 					)}
@@ -77,12 +102,13 @@ export const SigninScreen: React.FC = () => {
 					name="password"
 					render={({ field: { onChange, onBlur, value } }) => (
 						<CustomInput
+							password
 							inputLabel={'Password'}
-							keyboardType={'visible-password'}
+							placeholder={'Enter your password'}
 							autoCapitalize={'none'}
 							value={value}
 							onBlur={onBlur}
-							errorText={'Please enter a valid password!'}
+							errorText={errors.password && errors.password.message}
 							onChangeText={onChange}
 						/>
 					)}
@@ -94,22 +120,48 @@ export const SigninScreen: React.FC = () => {
 					</Text>
 				</TouchableOpacity>
 
-				{/* {signinError != undefined ? (
-					<ErrorComponent errorMessage={signinError} />
+				{error ? (
+					<Alert w="100%" status={'error'}>
+						<VStack space={2} flexShrink={1} w="100%">
+							<HStack flexShrink={1} space={2} justifyContent="space-between">
+								<HStack space={2} flexShrink={1}>
+									<Alert.Icon mt="1" />
+									<Text fontSize="md" color="coolGray.800">
+										{(error as any).message as string}
+									</Text>
+								</HStack>
+								<IconButton
+									variant="unstyled"
+									_focus={{
+										borderWidth: 0,
+									}}
+									icon={<CloseIcon size="3" />}
+									_icon={{
+										color: 'coolGray.600',
+									}} // set the react query error to null
+									onPress={() => reset()}
+								/>
+							</HStack>
+						</VStack>
+					</Alert>
 				) : (
-					<View style={{ height: 30 }}></View>
-				)} */}
+					<></>
+				)}
 
-				<CustomButton
-					title="Sign In"
-					onPress={handleSubmit(handleSigninClick)}
-					buttonStyle={{
-						width: width * 0.5,
-						alignSelf: 'center',
-						marginTop: 25,
-						backgroundColor: Colors.buttonColors.primary,
-					}}
-				/>
+				{!isLoading ? (
+					<CustomButton
+						title="Sign In"
+						onPress={handleSubmit(handleSigninClick)}
+						buttonStyle={{
+							width: width * 0.5,
+							alignSelf: 'center',
+							marginTop: 25,
+							backgroundColor: Colors.buttonColors.primary,
+						}}
+					/>
+				) : (
+					<ActivityIndicator size={'small'} color={Colors.primary} />
+				)}
 			</View>
 		</HideKeyboardView>
 	);
@@ -125,7 +177,9 @@ const styles = StyleSheet.create({
 	},
 	inputContainer: {
 		width: width * 0.8,
-		height: 'auto',
+		height: height * 0.7,
+		justifyContent: 'space-evenly',
+		padding: 15,
 	},
 	mainTextLabelStyle: {
 		fontSize: 30,
@@ -133,9 +187,8 @@ const styles = StyleSheet.create({
 		color: Colors.primary,
 	},
 	redirectToSigninStyle: {
-		fontSize: 18,
+		fontSize: 14,
 		textDecorationLine: 'underline',
-		marginTop: 10,
 		color: Colors.primary,
 	},
 

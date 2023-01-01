@@ -23,6 +23,12 @@ import {
 import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS, RATINGS } from './types/endpoints';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
+app.use((req, res, next) => {
+  logger.info(`Request: ${req.method} ${req.path}`);
+  logger.info({ body: req.body });
+  next();
+});
+
 app.use(USERS, usersRouter);
 app.use(RATINGS, ratingsRouter);
 app.use(LISTINGS, listingsRouter);

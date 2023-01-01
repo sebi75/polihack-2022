@@ -6,7 +6,7 @@ export const fetcher = async <T>(
 	params: RequestInit,
 	authorized: boolean
 ): Promise<T> => {
-	const apiURL = `http://localhost:8080/api/${endpoint}`;
+	const apiURL = `http://192.168.100.5:8080/api/${endpoint}`;
 
 	try {
 		if (authorized) {
@@ -21,7 +21,27 @@ export const fetcher = async <T>(
 			};
 		}
 
-		const response = await fetch(apiURL, params);
+		console.log('final params: ', {
+			...params,
+			headers: {
+				...params.headers,
+				'Content-Type': 'application/json',
+			},
+		});
+
+		const response = await fetch(apiURL, {
+			...params,
+			headers: {
+				...params.headers,
+				'Content-Type': 'application/json',
+			},
+		});
+
+		if (!response.ok) {
+			const error: ApiError = await response.json();
+			throw new Error(error.message);
+		}
+
 		const data = await response.json();
 
 		return data;

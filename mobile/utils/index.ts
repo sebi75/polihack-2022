@@ -1,7 +1,9 @@
 export {
-	getUserFromAsyncStorage,
-	removeFromAsyncStorage,
 	setUserToAsyncStorage,
+	setTokenInAsyncStorage,
+	removeFromAsyncStorage,
+	getUserFromAsyncStorage,
+	getTokenFromAsyncStorage,
 } from './asyncStorage';
 export { guid } from './randomId';
 

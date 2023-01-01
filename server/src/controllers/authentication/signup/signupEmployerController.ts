@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { prisma } from '../../../lib';
 import { ErrorMessagesEnum, ErrorTypesEnum, RoleTypesEnum, StatusCodesEnum } from '../../../types';
-import { encryptPassword, logger } from '../../../services';
+import { encryptPassword, logger, sendMail } from '../../../services';
 import { SignupEmployerControllerRequest } from './types';
 
 import jwt from 'jsonwebtoken';
@@ -35,15 +35,28 @@ export const signupEmployerController = async (
       },
     });
 
-    logger.info(`New Employer ${user.email} created`);
-
-    const { userId, role } = user;
-    const { employerId } = employerProfile;
-    const token = jwt.sign({ email, userId, role, employerId }, process.env.JWT_SECRET as string, {
+    logger.info(`New Employer ${user.email} created.... Waiting for email verification`);
+    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET as string, {
       expiresIn: '24h',
     });
 
-    return res.status(StatusCodesEnum.CREATED).json({ data: { user, employerProfile, token } });
+    await prisma.emailVerification.create({
+      data: {
+        userId: user.userId,
+        token: token,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from the time emitted
+      },
+    });
+
+    sendMail({
+      to: user.email,
+      subject: `Email Verification for ${employerProfile.name}`,
+      html: `<a href="http://localhost:8080/api/authentication/verify/${token}">Click here to verify your email</a>`,
+    });
+
+    return res
+      .status(StatusCodesEnum.CREATED)
+      .json({ data: { user, employerProfile, status: 'Email verification sent' } });
   } catch (error) {
     logger.error(`Error creating employer ${email}: ${error}`);
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({

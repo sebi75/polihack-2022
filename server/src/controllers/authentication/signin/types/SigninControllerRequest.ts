@@ -1,11 +1,12 @@
-import { User } from '@prisma/client';
 import { Request } from 'express';
+import { UserResultType } from '../../../../models/users';
 
 type SigninBody = {
   email: string;
   password: string;
+  hashedPassword: string;
 
-  user: User;
+  user: UserResultType;
 };
 
 export type SigninControllerRequest = Request<{}, {}, SigninBody>;
