@@ -1,3 +1,7 @@
-export type { UserResult } from './UserResult';
-
 export type { UpdateUserFields } from './UpdateUserFields';
+
+export type {
+	EmployerProfile,
+	UserProfile,
+	UserResultType,
+} from './UserResult';

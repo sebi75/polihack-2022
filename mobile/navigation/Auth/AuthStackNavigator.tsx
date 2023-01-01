@@ -2,7 +2,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SignupScreen } from '../../screens/Authentication/Signup/';
 import { SigninScreen } from '../../screens/Authentication/Signin/';
 
-import { CustomIconButton } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { useGetToken } from '../../hooks';
@@ -29,29 +28,21 @@ export const AuthStackNavigator: React.FC = () => {
 
 	return (
 		<AuthenticationStack.Navigator>
+			{/* we need a user default signup screen */}
+			{/* and a slight different flow for signing up employers */}
 			<AuthenticationStack.Screen
 				name="SignupScreen"
 				component={SignupScreen}
-				options={({ navigation, route }: { navigation: any; route: any }) => ({
-					headerRight: () => {
-						return (
-							<CustomIconButton
-								iconName={'ios-home'}
-								color={'black'}
-								size={25}
-								onPress={() => navigation.navigate('BottomTabNavigator')}
-							/>
-						);
-					},
+				options={{
 					headerShown: false,
-				})}
+				}}
 			/>
 			<AuthenticationStack.Screen
 				name="SigninScreen"
 				component={SigninScreen}
-				options={({ navigation, route }: { navigation: any; route: any }) => ({
+				options={{
 					headerShown: false,
-				})}
+				}}
 			/>
 		</AuthenticationStack.Navigator>
 	);

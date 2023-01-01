@@ -51,9 +51,15 @@ export const signupUserController = async (req: SignupUserControllerRequest, res
       html: `<a href="http://localhost:8080/api/authentication/verify/${token}">Click here to verify your email</a>`,
     });
 
-    return res
-      .status(StatusCodesEnum.CREATED)
-      .json({ data: { user, userProfile, status: 'Email verification sent' } });
+    return res.status(StatusCodesEnum.CREATED).json({
+      data: {
+        user: {
+          ...user,
+          profile: userProfile,
+        },
+        status: 'Email verification sent',
+      },
+    });
   } catch (error) {
     logger.error(`Error creating user ${email}: ${error}`);
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({

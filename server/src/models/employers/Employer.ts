@@ -7,16 +7,18 @@ export type EmployerResultType = {
   createdAt: Date;
   updatedAt: Date;
 
-  employerProfile: {
-    name: string;
-    about: string; // editable
-    rating: number;
-    location: string;
-    state: string;
-    city: string;
-    profilePicture: string; // editable
-    activityDomain: string;
-  };
+  employerProfile: EmployerProfile;
+};
+
+export type EmployerProfile = {
+  name: string;
+  about: string; // editable
+  rating: number;
+  location: string;
+  state: string;
+  city: string;
+  profilePicture: string; // editable
+  activityDomain: string;
 };
 
 type ExcludedKeysUnion =

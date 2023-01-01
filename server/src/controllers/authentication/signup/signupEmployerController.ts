@@ -54,9 +54,15 @@ export const signupEmployerController = async (
       html: `<a href="http://localhost:8080/api/authentication/verify/${token}">Click here to verify your email</a>`,
     });
 
-    return res
-      .status(StatusCodesEnum.CREATED)
-      .json({ data: { user, employerProfile, status: 'Email verification sent' } });
+    return res.status(StatusCodesEnum.CREATED).json({
+      data: {
+        user: {
+          ...user,
+          profile: employerProfile,
+        },
+        status: 'Email verification sent',
+      },
+    });
   } catch (error) {
     logger.error(`Error creating employer ${email}: ${error}`);
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({
