@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignupScreen } from '../../screens/Authentication/Signup/';
 import { SigninScreen } from '../../screens/Authentication/Signin/';
+import { SignupStackNavigator } from './SignupStackNavigator';
 
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
@@ -32,7 +32,7 @@ export const AuthStackNavigator: React.FC = () => {
 			{/* and a slight different flow for signing up employers */}
 			<AuthenticationStack.Screen
 				name="SignupScreen"
-				component={SignupScreen}
+				component={SignupStackNavigator}
 				options={{
 					headerShown: false,
 				}}

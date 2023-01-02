@@ -10,14 +10,7 @@ import {
 import { HideKeyboardView } from '../../../components/';
 
 import Colors from '../../../constants/Colors';
-import {
-	Alert,
-	CloseIcon,
-	HStack,
-	IconButton,
-	VStack,
-	Text,
-} from 'native-base';
+import { CustomAlertError } from '../../../components/errors';
 
 import { CustomInput } from '../../../components/CustomInput';
 import { CustomButton } from '../../../components';
@@ -25,7 +18,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useNavigation } from '@react-navigation/native';
-import { useSignin } from '../../../hooks/useSignin';
+import { useSignin } from './hooks/useSignin';
 import { ActivityIndicator } from 'react-native-paper';
 import { zodSigninFormSchema } from './utils';
 import { setTokenInAsyncStorage } from '../../../utils';
@@ -113,37 +106,17 @@ export const SigninScreen: React.FC = () => {
 						/>
 					)}
 				/>
-
 				<TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
-					<Text style={styles.redirectToSigninStyle}>
+					<RNText style={styles.redirectToSigninStyle}>
 						Don't have an account?
-					</Text>
+					</RNText>
 				</TouchableOpacity>
 
 				{error ? (
-					<Alert w="100%" status={'error'}>
-						<VStack space={2} flexShrink={1} w="100%">
-							<HStack flexShrink={1} space={2} justifyContent="space-between">
-								<HStack space={2} flexShrink={1}>
-									<Alert.Icon mt="1" />
-									<Text fontSize="md" color="coolGray.800">
-										{(error as any).message as string}
-									</Text>
-								</HStack>
-								<IconButton
-									variant="unstyled"
-									_focus={{
-										borderWidth: 0,
-									}}
-									icon={<CloseIcon size="3" />}
-									_icon={{
-										color: 'coolGray.600',
-									}} // set the react query error to null
-									onPress={() => reset()}
-								/>
-							</HStack>
-						</VStack>
-					</Alert>
+					<CustomAlertError
+						errorMessage={(error as any).message}
+						onClosePress={() => reset()}
+					/>
 				) : (
 					<></>
 				)}
