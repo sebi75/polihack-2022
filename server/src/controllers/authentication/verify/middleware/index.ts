@@ -1,2 +1,3 @@
 export { existsAndIsValidVerificationMiddleware } from './existsAndIsValidVerificationMiddleware';
-export { validateTokenValidityMiddleware } from './validateTokenValidityMiddleware';
+
+export { isVerifyTokenValidMiddleware } from './isVerifyTokenValidMiddleware';

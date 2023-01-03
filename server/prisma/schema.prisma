@@ -35,6 +35,13 @@ model EmailVerification {
   expires DateTime
 }
 
+model PasswordReset {
+  id      String   @id @default(cuid())
+  email   String   @unique
+  token   String
+  expires DateTime
+}
+
 model UserProfile {
   userId String @id
 

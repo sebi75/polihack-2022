@@ -1,6 +1,3 @@
-export {
-  existsAndIsValidVerificationMiddleware,
-  validateTokenValidityMiddleware,
-} from './middleware';
+export { existsAndIsValidVerificationMiddleware, isVerifyTokenValidMiddleware } from './middleware';
 
 export { verifyEmailController } from './verifyEmailController';

@@ -1,0 +1,1 @@
+export { zodForgotPasswordValidator } from './zodForgotPasswordValidator';
