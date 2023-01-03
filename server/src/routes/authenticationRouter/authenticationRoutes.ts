@@ -16,19 +16,41 @@ import {
 
 import {
   existsAndIsValidVerificationMiddleware,
-  validateTokenValidityMiddleware,
+  isVerifyTokenValidMiddleware,
   verifyEmailController,
 } from '../../controllers/authentication/verify';
 
+import {
+  zodForgotPasswordValidator,
+  sendForgotPasswordMailController,
+  isResetForgotPasswordTokenValidMiddleware,
+  isResetPasswordRequestValidMiddleware,
+  resetForgotPasswordController,
+} from '../../controllers/authentication/forgotPassword';
+
 import { EndpointsEnum } from '../../types/endpoints';
 
-import { genericValidationMiddleware } from '../../middlewares';
+import { existsUserByEmailMiddleware, genericValidationMiddleware } from '../../middlewares';
 
 export const authenticationRouter = express.Router();
 
 authenticationRouter.post(
+  '/reset-forgot-password/:token', //@ts-ignore
+  isResetForgotPasswordTokenValidMiddleware,
+  isResetPasswordRequestValidMiddleware,
+  resetForgotPasswordController,
+);
+
+authenticationRouter.post(
+  '/forgot-password',
+  genericValidationMiddleware(zodForgotPasswordValidator),
+  existsUserByEmailMiddleware,
+  sendForgotPasswordMailController,
+);
+
+authenticationRouter.post(
   '/verify/:token', //@ts-ignore
-  validateTokenValidityMiddleware,
+  isVerifyTokenValidMiddleware,
   existsAndIsValidVerificationMiddleware,
   verifyEmailController,
 );

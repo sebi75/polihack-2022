@@ -1,12 +1,10 @@
 import { Response, NextFunction } from 'express';
-import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../../types';
-
-import { VerifyEmailControllerRequest } from '../types';
-
+import { ErrorMessagesEnum, StatusCodesEnum } from '../../../../../types';
+import { ResetForgotPasswordControllerRequest } from '../../types';
 import jwt from 'jsonwebtoken';
 
-export const validateTokenValidityMiddleware = async (
-  req: VerifyEmailControllerRequest,
+export const isResetForgotPasswordTokenValidMiddleware = async (
+  req: ResetForgotPasswordControllerRequest,
   res: Response,
   next: NextFunction,
 ) => {
@@ -14,8 +12,7 @@ export const validateTokenValidityMiddleware = async (
 
   if (!token) {
     return res.status(StatusCodesEnum.BAD_REQUEST).json({
-      error: ErrorTypesEnum.BAD_REQUEST,
-      message: ErrorMessagesEnum.TOKEN_NOT_PROVIDED,
+      error: ErrorMessagesEnum.TOKEN_NOT_PROVIDED,
     });
   }
 
@@ -23,14 +20,13 @@ export const validateTokenValidityMiddleware = async (
     jwt.verify(token, process.env.JWT_SECRET as string);
   } catch (error) {
     return res.status(StatusCodesEnum.BAD_REQUEST).json({
-      error: ErrorTypesEnum.BAD_REQUEST,
       message: ErrorMessagesEnum.INVALID_TOKEN,
     });
   }
 
-  const tokenData = jwt.decode(token) as { userId: string };
+  const tokenData = jwt.decode(token) as { email: string };
 
-  req.userId = tokenData.userId;
+  req.email = tokenData.email;
 
   return next();
 };
