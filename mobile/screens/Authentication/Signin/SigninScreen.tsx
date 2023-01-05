@@ -57,7 +57,7 @@ export const SigninScreen: React.FC = () => {
 					console.log({ token, user });
 					queryClient.setQueryData(['client-user'], user);
 					await setTokenInAsyncStorage(token);
-					navigation.navigate('BottomTabNavigator');
+					navigation.navigate('MainEntryUserBottomTabNavigator');
 				},
 			}
 		);

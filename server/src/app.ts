@@ -24,8 +24,7 @@ import { LISTINGS, AUTHENTICATION, USERS, EMPLOYERS, RATINGS } from './types/end
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from './types';
 
 app.use((req, res, next) => {
-  logger.info(`Request: ${req.method} ${req.path}`);
-  logger.info({ body: req.body });
+  logger.info(`Request: ${req.method} ${req.path} ${req.body}`);
   next();
 });
 

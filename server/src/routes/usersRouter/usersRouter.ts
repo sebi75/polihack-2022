@@ -8,6 +8,7 @@ import {
   zodUserUpdateValidator,
   getUserByUserIdController,
   validateUpdateUserBodyMiddleware,
+  getUserByTokenController,
 } from '../../controllers/users';
 import { genericValidationMiddleware } from '../../middlewares';
 
@@ -19,7 +20,10 @@ import { handleFileUploadMiddleware } from '../../controllers/users/updateProfil
 export const usersRouter = express.Router();
 
 //@ts-ignore
-usersRouter.get('/:userId', isAuthenticatedMiddleware, getUserByUserIdController);
+usersRouter.get('/user/:userId', isAuthenticatedMiddleware, getUserByUserIdController);
+
+//@ts-ignore
+usersRouter.get('/user', isAuthenticatedMiddleware, getUserByTokenController);
 
 //current average time for this endpoint is 500ms with very good internet
 //average speed without awaiting for aws upload to finish is 250ms

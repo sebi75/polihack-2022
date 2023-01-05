@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 
-import { StartupStackNavigator } from './navigation/Stacks/StartupStack';
+import { StartupStackNavigator } from './navigation/StartupStack';
 
 import { enableScreens } from 'react-native-screens';
 

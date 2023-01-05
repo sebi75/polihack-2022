@@ -26,7 +26,7 @@ export const AuthStackNavigator: React.FC = () => {
 			return navigation.navigate('SigninScreen');
 		}
 
-		return navigation.navigate('BottomTabNavigator');
+		return navigation.navigate('MainEntryUserBottomTabNavigator');
 	}, [tokenData]);
 
 	return (

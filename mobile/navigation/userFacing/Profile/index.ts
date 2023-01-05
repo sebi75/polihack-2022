@@ -1,0 +1,1 @@
+export { ProfileStackNavigator } from './ProfileStack';

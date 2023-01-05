@@ -1,7 +1,7 @@
-import { UserResult } from './models';
+import { UserResultType } from './models';
 import { restService } from '../../utils';
-import { USER, USERS } from '../../types/endpoints';
+import { TOKEN_USER } from '../../types/endpoints';
 
 export const getUserByToken = async () => {
-	return await restService.get<UserResult>(`/${USERS}/${USER}`, true);
+	return await restService.get<UserResultType>(`${TOKEN_USER}`, true);
 };

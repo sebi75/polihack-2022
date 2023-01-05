@@ -6,4 +6,4 @@ export {
   validateUpdateUserBodyMiddleware,
 } from './updateProfile';
 
-export { getUserByUserIdController } from './get';
+export { getUserByUserIdController, getUserByTokenController } from './get';

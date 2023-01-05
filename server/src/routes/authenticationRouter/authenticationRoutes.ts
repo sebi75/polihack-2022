@@ -34,7 +34,6 @@ import { EndpointsEnum } from '../../types/endpoints';
 import { existsUserByEmailMiddleware, genericValidationMiddleware } from '../../middlewares';
 import { isAuthenticatedMiddleware } from '../../controllers/authentication';
 import { StatusCodesEnum } from '../../types';
-import { logger } from '../../services';
 
 export const authenticationRouter = express.Router();
 
