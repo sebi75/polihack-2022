@@ -146,20 +146,11 @@ export const SignupEmployerThirdScreen: FunctionComponent<
 
 				<View>
 					<CustomButton
-						title="Back"
-						onPress={handleBackClick}
-						buttonStyle={{
-							width: width * 0.5,
-							alignSelf: 'center',
-							marginTop: 25,
-							backgroundColor: Colors.buttonColors.primary,
-						}}
-					/>
-					<CustomButton
-						title="Next Step"
+						title="Sign Up"
 						onPress={handleSubmit(handleSignupClick)}
 						buttonStyle={{
-							width: width * 0.5,
+							width: width * 0.9,
+							height: 50,
 							alignSelf: 'center',
 							marginTop: 25,
 							backgroundColor: Colors.buttonColors.primary,
@@ -184,8 +175,9 @@ const styles = StyleSheet.create({
 		height: 'auto',
 	},
 	mainTextLabelStyle: {
-		fontSize: 30,
+		fontSize: 40,
 		fontWeight: '700',
+		textAlign: 'center',
 		color: Colors.primary,
 	},
 	redirectToSigninStyle: {

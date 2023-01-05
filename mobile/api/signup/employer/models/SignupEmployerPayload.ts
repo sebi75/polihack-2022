@@ -1,6 +1,6 @@
 export type SignupEmployerPayload = {
 	city: string;
-	state: string;
+	county: string;
 	email: string;
 	password: string;
 	streetName: string;

@@ -69,7 +69,7 @@ export const SignupEmployerSecondScreen: FunctionComponent<
 	return (
 		<HideKeyboardView withAvoidView>
 			<View style={styles.inputContainer}>
-				<Text style={styles.mainTextLabelStyle}>Sign Up - Step 2</Text>
+				<Text style={styles.mainTextLabelStyle}>Sign Up - Step 2/3</Text>
 				<Controller
 					control={control}
 					rules={{
@@ -130,21 +130,23 @@ export const SignupEmployerSecondScreen: FunctionComponent<
 				/>
 
 				<View>
-					<CustomButton
+					{/* <CustomButton
 						title="Back"
 						onPress={handleBackClick}
 						buttonStyle={{
-							width: width * 0.5,
+							width: width * 0.9,
+							height: 50,
 							alignSelf: 'center',
 							marginTop: 25,
 							backgroundColor: Colors.buttonColors.primary,
 						}}
-					/>
+					/> */}
 					<CustomButton
 						title="Next Step"
 						onPress={handleSubmit(handleNextStepClick)}
 						buttonStyle={{
-							width: width * 0.5,
+							width: width * 0.9,
+							height: 50,
 							alignSelf: 'center',
 							marginTop: 25,
 							backgroundColor: Colors.buttonColors.primary,
@@ -169,8 +171,9 @@ const styles = StyleSheet.create({
 		height: 'auto',
 	},
 	mainTextLabelStyle: {
-		fontSize: 30,
+		fontSize: 40,
 		fontWeight: '700',
+		textAlign: 'center',
 		color: Colors.primary,
 	},
 	redirectToSigninStyle: {

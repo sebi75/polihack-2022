@@ -1,72 +1,65 @@
+import React, { FunctionComponent } from 'react';
 import {
 	View,
-	Dimensions,
-	StyleSheet,
-	TouchableOpacity,
 	Text as RNText,
+	StyleSheet,
+	ActivityIndicator,
+	Dimensions,
 } from 'react-native';
+import {
+	HideKeyboardView,
+	CustomInput,
+	CustomButton,
+	CustomAlert,
+} from '../../../components/';
 
-import { HideKeyboardView } from '../../../components/';
-
+import { useForm, Controller } from 'react-hook-form';
 import Colors from '../../../constants/Colors';
-import { CustomAlert } from '../../../components/alerts';
 
-import { CustomInput } from '../../../components/CustomInput';
-import { CustomButton } from '../../../components';
-import { Controller, useForm } from 'react-hook-form';
+import { usePostForgotPassword } from './hooks/usePostForgotPassword';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { zodForgotPasswordFormSchema } from './utils/zodForgotPasswordFormSchema';
 
-import { useNavigation } from '@react-navigation/native';
-import { useSignin } from './hooks/useSignin';
-import { ActivityIndicator } from 'react-native-paper';
-import { zodSigninFormSchema } from './utils';
-import { setTokenInAsyncStorage } from '../../../utils';
-import { queryClient } from '../../../App';
-
-interface SigninFormState {
+interface ForgotPasswordFormState {
 	email: string;
-	password: string;
+	confirmEmail: string;
 }
 
 const { width, height } = Dimensions.get('window');
-export const SigninScreen: React.FC = () => {
+export const ForgotPasswordScreen: FunctionComponent = () => {
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<SigninFormState>({
+	} = useForm<ForgotPasswordFormState>({
 		defaultValues: {
 			email: '',
-			password: '',
+			confirmEmail: '',
 		},
-		resolver: zodResolver(zodSigninFormSchema),
+		resolver: zodResolver(zodForgotPasswordFormSchema),
 	});
-	const { mutate, isLoading, error, reset } = useSignin();
-	const navigation: any = useNavigation();
+	const {
+		mutate,
+		reset,
+		error: forgotPasswordError,
+		isLoading: isForgotPasswordLoading,
+		data: postForgotPasswordData,
+	} = usePostForgotPassword();
 
-	const handleSigninClick = (data: SigninFormState) => {
-		mutate(
-			{
-				email: data.email,
-				password: data.password,
+	const onSubmit = (data: ForgotPasswordFormState) => {
+		mutate(data, {
+			onSuccess: () => {
+				console.log('success');
 			},
-			{
-				onSuccess: async (data) => {
-					const { token, user } = data.data;
-
-					console.log({ token, user });
-					queryClient.setQueryData(['client-user'], user);
-					await setTokenInAsyncStorage(token);
-					navigation.navigate('BottomTabNavigator');
-				},
-			}
-		);
+		});
 	};
+
+	console.log({ errors });
 
 	return (
 		<HideKeyboardView withAvoidView>
 			<View style={styles.inputContainer}>
-				<RNText style={styles.mainTextLabelStyle}>Sign In</RNText>
+				<RNText style={styles.mainTextLabelStyle}>Forgot Password</RNText>
 				<Controller
 					control={control}
 					rules={{
@@ -76,7 +69,7 @@ export const SigninScreen: React.FC = () => {
 					render={({ field: { onChange, onBlur, value } }) => (
 						<CustomInput
 							inputLabel={'Email'}
-							placeholder={'Enter your email'}
+							placeholder={'Enter yout email'}
 							autoCapitalize={'none'}
 							value={value}
 							onBlur={onBlur}
@@ -90,39 +83,34 @@ export const SigninScreen: React.FC = () => {
 					rules={{
 						required: true,
 					}}
-					name="password"
+					name="confirmEmail"
 					render={({ field: { onChange, onBlur, value } }) => (
 						<CustomInput
-							password
-							inputLabel={'Password'}
-							placeholder={'Enter your password'}
+							inputLabel={'Confirm Email'}
+							placeholder={'Confirm your email'}
 							autoCapitalize={'none'}
 							value={value}
 							onBlur={onBlur}
-							errorText={errors.password && errors.password.message}
+							errorText={errors.confirmEmail && errors.confirmEmail.message}
 							onChangeText={onChange}
 						/>
 					)}
 				/>
-				<TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
-					<RNText style={styles.redirectStyle}>Don't have an account?</RNText>
-				</TouchableOpacity>
-
-				{error ? (
+				{forgotPasswordError ? (
 					<CustomAlert
-						message={(error as any).message}
-						status="error"
+						status={'error'}
+						message={(forgotPasswordError as any).message}
 						onClosePress={() => reset()}
 					/>
 				) : (
 					<></>
 				)}
 
-				{!isLoading ? (
+				{!isForgotPasswordLoading ? (
 					<>
 						<CustomButton
-							title="Sign In"
-							onPress={handleSubmit(handleSigninClick)}
+							title="Submit"
+							onPress={handleSubmit(onSubmit)}
 							buttonStyle={{
 								width: width * 0.9,
 								height: 50,
@@ -131,13 +119,6 @@ export const SigninScreen: React.FC = () => {
 								backgroundColor: Colors.buttonColors.primary,
 							}}
 						/>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('ForgotPasswordScreen')}
-						>
-							<RNText style={[styles.redirectStyle, { textAlign: 'center' }]}>
-								Forgot Password?
-							</RNText>
-						</TouchableOpacity>
 					</>
 				) : (
 					<ActivityIndicator size={'small'} color={Colors.primary} />

@@ -1,13 +1,11 @@
 export {
-	setUserToAsyncStorage,
 	setTokenInAsyncStorage,
-	removeFromAsyncStorage,
-	getUserFromAsyncStorage,
 	getTokenFromAsyncStorage,
+	removeTokenFromAsyncStorage,
 } from './asyncStorage';
 export { guid } from './randomId';
 
-export { formatDateFromDatenow } from './formatDate';
+export { formatDateFromDatenow, formatSignupUserDate } from './formatDate';
 
 export { fetcher } from './fetcher';
 

@@ -7,7 +7,7 @@ import { fetcher } from './fetcher';
 
 export const restService = {
 	get: async <T>(endpoint: string, authorized: boolean) => {
-		return await fetcher<T>(
+		return fetcher<T>(
 			endpoint,
 			{
 				method: HttpMethodTypes.GET,
@@ -16,7 +16,7 @@ export const restService = {
 		);
 	},
 	post: async <T, U>(endpoint: string, params: U, authorized: boolean) => {
-		return await fetcher<T>(
+		return fetcher<T>(
 			endpoint,
 			{
 				method: HttpMethodTypes.POST,
@@ -26,7 +26,7 @@ export const restService = {
 		);
 	},
 	put: async <T, U>(endpoint: string, params: U, authorized: boolean) => {
-		return await fetcher<T>(
+		return fetcher<T>(
 			endpoint,
 			{
 				method: HttpMethodTypes.PUT,
@@ -36,7 +36,7 @@ export const restService = {
 		);
 	},
 	delete: async <T, U>(endpoint: string, params: U, authorized: boolean) => {
-		return await fetcher<T>(
+		return fetcher<T>(
 			endpoint,
 			{
 				method: HttpMethodTypes.DELETE,

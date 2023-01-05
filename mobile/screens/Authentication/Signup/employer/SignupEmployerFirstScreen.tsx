@@ -46,25 +46,7 @@ export const SignupEmployerFirstScreen: FunctionComponent = () => {
 	return (
 		<HideKeyboardView withAvoidView>
 			<View style={styles.inputContainer}>
-				<Text style={styles.mainTextLabelStyle}>Sign Up - Step 1</Text>
-				{/* <Controller
-					control={control}
-					rules={{
-						required: true,
-					}}
-					name="email"
-					render={({ field: { onChange, onBlur, value } }) => (
-						<CustomInput
-							inputLabel={'Email'}
-							placeholder={'Enter your email'}
-							autoCapitalize={'none'}
-							value={value}
-							onBlur={onBlur}
-							errorText={errors.email && errors.email.message}
-							onChangeText={onChange}
-						/>
-					)}
-				/> */}
+				<Text style={styles.mainTextLabelStyle}>Sign Up - Step 1/3</Text>
 				<Controller
 					control={control}
 					rules={{
@@ -102,17 +84,27 @@ export const SignupEmployerFirstScreen: FunctionComponent = () => {
 					)}
 				/>
 
-				<TouchableOpacity onPress={() => navigation.navigate('SigninScreen')}>
-					<Text style={styles.redirectToSigninStyle}>
-						Already have an account?
-					</Text>
-				</TouchableOpacity>
+				<View style={{ marginTop: 20 }}>
+					<TouchableOpacity onPress={() => navigation.navigate('SigninScreen')}>
+						<Text style={styles.redirectToSigninStyle}>
+							Already have an account?
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('SignupUserScreen')}
+					>
+						<Text style={styles.redirectToSigninStyle}>
+							Create a user account
+						</Text>
+					</TouchableOpacity>
+				</View>
 
 				<CustomButton
 					title="Next Step"
 					onPress={handleSubmit(handleNextStepClick)}
 					buttonStyle={{
-						width: width * 0.5,
+						width: width * 0.9,
+						height: 50,
 						alignSelf: 'center',
 						marginTop: 25,
 						backgroundColor: Colors.buttonColors.primary,
@@ -136,14 +128,15 @@ const styles = StyleSheet.create({
 		height: 'auto',
 	},
 	mainTextLabelStyle: {
-		fontSize: 30,
+		fontSize: 40,
 		fontWeight: '700',
+		textAlign: 'center',
 		color: Colors.primary,
 	},
 	redirectToSigninStyle: {
-		fontSize: 18,
+		fontSize: 14,
+		marginVertical: 10,
 		textDecorationLine: 'underline',
-		marginTop: 10,
 		color: Colors.primary,
 	},
 

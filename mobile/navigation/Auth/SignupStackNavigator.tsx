@@ -19,6 +19,7 @@ export const SignupStackNavigator: FunctionComponent = () => {
 				component={SignupUserScreen}
 				options={{
 					headerShown: false,
+					gestureEnabled: false,
 				}}
 			/>
 			<SignupStack.Screen
@@ -26,6 +27,7 @@ export const SignupStackNavigator: FunctionComponent = () => {
 				component={SignupEmployerStackNavigator}
 				options={{
 					headerShown: false,
+					gestureEnabled: false,
 				}}
 			/>
 		</SignupStack.Navigator>

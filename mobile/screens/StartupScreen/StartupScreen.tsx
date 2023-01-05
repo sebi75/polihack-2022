@@ -2,33 +2,39 @@ import { View, StyleSheet } from 'react-native';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { getUserFromAsyncStorage } from '../../utils/asyncStorage';
+import { removeTokenFromAsyncStorage } from '../../utils/asyncStorage';
+import { useValidateToken } from '../../hooks';
 // import { useGetUser } from "../../hooks";
 
 export const StartupScreen: React.FC = () => {
 	const navigation: any = useNavigation();
+	const postValidateToken = useValidateToken();
 	// const { data, isLoading, error } = useGetUser(); // get user in state if any
 
-	const tryLogin = async () => {
+	const tryLogin = async (): Promise<any> => {
 		try {
-			const user = await getUserFromAsyncStorage();
-
-			if (!user) {
-				return navigation.navigate('AuthStackNavigator');
-			}
-
-			console.log('Login Successful');
-			return navigation.navigate('BottomTabNavigator');
+			postValidateToken.mutate(
+				{},
+				{
+					onSuccess: () => {
+						console.log('token successully validated');
+						return navigation.navigate('BottomTabNavigator');
+					},
+					onError: async () => {
+						console.log('token expired');
+						await removeTokenFromAsyncStorage();
+						return navigation.navigate('AuthStackNavigator');
+					},
+				}
+			);
 		} catch (error) {
-			throw Error('Oops! Something went wrong');
+			return tryLogin(); // some type of retry logic is something went wrong
+			// throw Error('Oops! Something went wrong');
 		}
 	};
 
 	useEffect(() => {
-		console.log('run useeffect in startupscreen');
-		//navigation.navigate("AuthStackNavigator");
 		tryLogin();
-		// navigation.navigate('BottomTabNavigator')
 	}, []);
 
 	return <View style={styles.screen}></View>;

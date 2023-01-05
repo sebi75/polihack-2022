@@ -7,12 +7,18 @@ import { JobsStackNavigator } from '../Stacks/JobsStackNavigator';
 import { Platform, View } from 'react-native';
 import ProfileStackNavigator from '../Stacks/ProfileStack';
 import { JobsApplicationsStackNavigator } from '../Stacks/JobApplicationsStack';
-// import { useGetUser } from "../../hooks";
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = () => {
-	// const { data: userData } = useGetUser();
+	const navigation: any = useNavigation();
+
+	// useEffect(() => {
+	// 	AsyncStorage.removeItem('token').then(() => {
+	// 		navigation.navigate('AuthStackNavigator');
+	// 	});
+	// }, []);
 
 	return (
 		<Tab.Navigator

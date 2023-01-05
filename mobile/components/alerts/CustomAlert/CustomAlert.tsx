@@ -8,23 +8,25 @@ import {
 	CloseIcon,
 } from 'native-base';
 
-interface CustomAlertErrorProps {
-	errorMessage: string;
+interface CustomAlertProps {
+	message: string;
+	status: 'error' | 'success' | 'warning' | 'info' | undefined;
 	onClosePress: () => void;
 }
 
-export const CustomAlertError: FunctionComponent<CustomAlertErrorProps> = ({
-	errorMessage,
+export const CustomAlert: FunctionComponent<CustomAlertProps> = ({
+	status,
+	message,
 	onClosePress,
 }) => {
 	return (
-		<Alert w="100%" status={'error'}>
+		<Alert w="100%" status={status}>
 			<VStack space={2} flexShrink={1} w="100%">
 				<HStack flexShrink={1} space={2} justifyContent="space-between">
 					<HStack space={2} flexShrink={1}>
 						<Alert.Icon mt="1" />
 						<Text fontSize="md" color="coolGray.800">
-							{errorMessage}
+							{message}
 						</Text>
 					</HStack>
 					<IconButton

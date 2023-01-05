@@ -1,10 +1,13 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { SigninScreen } from '../../screens/Authentication/Signin/';
+import { ForgotPasswordScreen } from '../../screens/Authentication/ForgotPassword';
 import { SignupStackNavigator } from './SignupStackNavigator';
 
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { useGetToken } from '../../hooks';
+import Colors from '../../constants/Colors';
+import { CustomIconButton } from '../../components';
 
 const AuthenticationStack = createStackNavigator();
 
@@ -28,13 +31,12 @@ export const AuthStackNavigator: React.FC = () => {
 
 	return (
 		<AuthenticationStack.Navigator>
-			{/* we need a user default signup screen */}
-			{/* and a slight different flow for signing up employers */}
 			<AuthenticationStack.Screen
 				name="SignupScreen"
 				component={SignupStackNavigator}
 				options={{
 					headerShown: false,
+					gestureEnabled: false,
 				}}
 			/>
 			<AuthenticationStack.Screen
@@ -42,6 +44,30 @@ export const AuthStackNavigator: React.FC = () => {
 				component={SigninScreen}
 				options={{
 					headerShown: false,
+					gestureEnabled: false,
+				}}
+			/>
+			<AuthenticationStack.Screen
+				name="ForgotPasswordScreen"
+				component={ForgotPasswordScreen}
+				options={{
+					gestureEnabled: false,
+					headerTitle: '',
+					headerTintColor: Colors.primary,
+					headerBackTitleVisible: false,
+					headerShadowVisible: false,
+					headerStatusBarHeight: 70,
+					headerLeft: () => {
+						return (
+							<CustomIconButton
+								onPress={() => navigation.navigate('SigninScreen')}
+								iconName="arrow-back-circle"
+								color={Colors.primary}
+								size={45}
+								style={{ marginLeft: 10 }}
+							/>
+						);
+					},
 				}}
 			/>
 		</AuthenticationStack.Navigator>

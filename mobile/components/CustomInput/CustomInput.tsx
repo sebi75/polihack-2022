@@ -1,10 +1,4 @@
-import {
-	View,
-	Text,
-	StyleSheet,
-	Dimensions,
-	TextInputProps,
-} from 'react-native';
+import { View, Text, StyleSheet, TextInputProps } from 'react-native';
 import { useState } from 'react';
 
 import Colors from '../../constants/Colors';
@@ -17,7 +11,6 @@ interface IInputProps extends TextInputProps {
 	inputLabel?: string;
 }
 
-const { width } = Dimensions.get('window');
 export const CustomInput: React.FC<IInputProps> = ({
 	value,
 	onBlur,
@@ -37,6 +30,10 @@ export const CustomInput: React.FC<IInputProps> = ({
 		<View style={styles.formControl}>
 			<Text style={styles.label}>{inputLabel}</Text>
 			<Input
+				style={{
+					color: Colors.textColor,
+					fontSize: 16,
+				}}
 				InputRightElement={
 					password ? (
 						<Ionicons
@@ -69,7 +66,8 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		fontWeight: 'bold',
-		marginBottom: 10,
+		fontSize: 16,
+		marginBottom: 15,
 		color: Colors.textColor,
 	},
 	errorContainer: {

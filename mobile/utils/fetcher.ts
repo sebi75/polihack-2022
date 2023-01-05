@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ApiError } from '../types/ApiError';
+import { getTokenFromAsyncStorage } from './asyncStorage';
 
 export const fetcher = async <T>(
 	endpoint: string,
@@ -10,7 +11,7 @@ export const fetcher = async <T>(
 
 	try {
 		if (authorized) {
-			const token = await AsyncStorage.getItem('token');
+			const token = await getTokenFromAsyncStorage();
 
 			if (!token) {
 				throw new Error('No token');
