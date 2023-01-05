@@ -50,7 +50,8 @@ model UserProfile {
   profilePicture String
   rating         Float?
   birthday       String
-  location       String
+  city           String
+  county         String
   about          String
 
   User User @relation(fields: [userId], references: [userId])
@@ -63,11 +64,12 @@ model EmployerProfile {
   userId     String @unique
   employerId String @id @default(cuid())
 
-  name           String
+  companyName    String
   about          String
   rating         Float?
-  location       String
-  state          String
+  streetName     String
+  streetNumber   Int
+  county         String
   city           String
   profilePicture String
   activityDomain String

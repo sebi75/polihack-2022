@@ -10,7 +10,8 @@ export const signupEmployerController = async (
   req: SignupEmployerControllerRequest,
   res: Response,
 ) => {
-  const { activityDomain, city, email, name, password, state } = req.body;
+  const { activityDomain, city, email, companyName, password, county, streetName, streetNumber } =
+    req.body;
 
   const hashedPassword = encryptPassword(password);
   try {
@@ -25,13 +26,14 @@ export const signupEmployerController = async (
     const employerProfile = await prisma.employerProfile.create({
       data: {
         userId: user.userId,
-        name,
+        companyName,
         activityDomain,
         city,
-        state,
+        county,
         about: '',
         profilePicture: '',
-        location: '',
+        streetName,
+        streetNumber: +streetNumber,
       },
     });
 
@@ -50,7 +52,7 @@ export const signupEmployerController = async (
 
     sendMail({
       to: user.email,
-      subject: `Email Verification for ${employerProfile.name}`,
+      subject: `Email Verification for ${employerProfile.companyName}`,
       html: `<a href="http://localhost:8080/api/authentication/verify/${token}">Click here to verify your email</a>`,
     });
 

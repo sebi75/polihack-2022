@@ -25,14 +25,23 @@ import {
   sendForgotPasswordMailController,
   isResetForgotPasswordTokenValidMiddleware,
   isResetPasswordRequestValidMiddleware,
+  hasAlreadyRequestedChangeMiddleware,
   resetForgotPasswordController,
 } from '../../controllers/authentication/forgotPassword';
 
 import { EndpointsEnum } from '../../types/endpoints';
 
 import { existsUserByEmailMiddleware, genericValidationMiddleware } from '../../middlewares';
+import { isAuthenticatedMiddleware } from '../../controllers/authentication';
+import { StatusCodesEnum } from '../../types';
+import { logger } from '../../services';
 
 export const authenticationRouter = express.Router();
+
+//@ts-ignore
+authenticationRouter.post('/validate-token', isAuthenticatedMiddleware, (_req, res) => {
+  return res.status(StatusCodesEnum.OK).json({ message: 'Authenticated' });
+});
 
 authenticationRouter.post(
   '/reset-forgot-password/:token', //@ts-ignore
@@ -45,6 +54,7 @@ authenticationRouter.post(
   '/forgot-password',
   genericValidationMiddleware(zodForgotPasswordValidator),
   existsUserByEmailMiddleware,
+  hasAlreadyRequestedChangeMiddleware,
   sendForgotPasswordMailController,
 );
 

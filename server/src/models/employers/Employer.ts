@@ -32,8 +32,10 @@ type ExcludedKeysUnion =
 
 export type EmployerCreate = Omit<EmployerResultType, ExcludedKeysUnion> & {
   city: string;
-  name: string;
-  state: string;
+  county: string;
+  streetNumber: string;
+  streetName: string;
+  companyName: string;
   password: string;
   activityDomain: string;
 };

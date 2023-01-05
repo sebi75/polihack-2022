@@ -28,7 +28,8 @@ export const signupUserController = async (req: SignupUserControllerRequest, res
         lastName: '',
         profilePicture: '',
         about: '',
-        location: '',
+        city: '',
+        county: '',
       },
     });
 

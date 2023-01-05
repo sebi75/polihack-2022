@@ -3,14 +3,16 @@ import { Response } from 'express';
 import { UpdateUserRequest } from './types';
 import { prisma } from '../../../lib';
 import { ErrorMessagesEnum, ErrorTypesEnum, StatusCodesEnum } from '../../../types';
+import { UserResultType } from '../../../models/users';
+import { UserProfile } from '../../../models/users/User';
+import { exclude } from '../../../utils';
 
 export const updateUserController = async (req: UpdateUserRequest, res: Response) => {
   //destructuring with the fields that body CAN have, but not all of them are required
-  const { about, firstName, lastName, profilePicture } = req.body;
+  const { about, firstName, lastName, profilePicture, city, county } = req.body;
   const { userId } = req.tokenData;
 
   try {
-    //update the user with the new fields in req.body
     const user = await prisma.userProfile.update({
       data: {
         ...req.body,
@@ -19,35 +21,21 @@ export const updateUserController = async (req: UpdateUserRequest, res: Response
         userId,
       },
       include: {
-        User: {
-          select: {
-            createdAt: true,
-            updatedAt: true,
-            userId: true,
-            email: true,
-            isVerified: true,
-            role: true,
-          },
-        },
+        User: true,
       },
     });
+
+    const userWithoutPassword = exclude(user.User, ['hashedPassword']);
 
     //send the latest user data back to the client
     return res.status(StatusCodesEnum.OK).json({
       data: {
         user: {
-          ...user.User,
-          userProfile: {
-            about: user.about,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            profilePicture: user.profilePicture,
-            rating: user.rating,
-            userId: user.userId,
-            location: user.location,
-            birthday: user.birthday,
-          },
-        },
+          ...userWithoutPassword,
+          profile: {
+            ...user,
+          } as UserProfile,
+        } as UserResultType,
       },
     });
   } catch (error) {

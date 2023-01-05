@@ -37,6 +37,7 @@ export const sendForgotPasswordMailController = async (
       message: 'Password reset email sent',
     });
   } catch (error) {
+    logger.error(`Error sending password reset email to ${email}: ${error}`);
     return res.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({
       message: ErrorMessagesEnum.SERVER_INTERNAL_ERROR,
     });

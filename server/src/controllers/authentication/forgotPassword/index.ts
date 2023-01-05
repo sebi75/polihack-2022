@@ -1,6 +1,9 @@
 export { zodForgotPasswordValidator } from './sendForgotPasswordMail/middleware';
 
-export { sendForgotPasswordMailController } from './sendForgotPasswordMail';
+export {
+  sendForgotPasswordMailController,
+  hasAlreadyRequestedChangeMiddleware,
+} from './sendForgotPasswordMail';
 
 export {
   isResetForgotPasswordTokenValidMiddleware,
